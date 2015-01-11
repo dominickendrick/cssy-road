@@ -6,6 +6,8 @@ BasicGame.Boot = function (game) { };
 
 var isoGroup, player;
 var jumpTimer = 0;
+var interval = 64;
+var speed = 300;
 
 BasicGame.Boot.prototype =
 {
@@ -73,9 +75,12 @@ BasicGame.Boot.prototype =
         player.tint = 0x86bfda;
         player.anchor.set(0.5);
 
+        
         game.physics.isoArcade.enable(player);
         player.body.collideWorldBounds = true;
 
+        player.moving = false;
+        player.currentPos = player.body.position
 
         // Set up our controls.
         this.cursors = game.input.keyboard.createCursorKeys();
@@ -89,50 +94,56 @@ BasicGame.Boot.prototype =
         ]);
 
         var space = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-
-      //  space.onDown.add(function () {
-      //      player.body.velocity.z = 300;
-    //    }, this);
         
+       this.cursors.up.onDown.add(function () {
+           player.body.velocity.y = -speed;
+           player.yUpDest = player.body.y - interval
+       }, this);
+       
+       this.cursors.down.onDown.add(function () {
+           player.body.velocity.y = speed;
+           player.yDownDest = player.body.y + interval
+       }, this);
+       
+       this.cursors.left.onDown.add(function () {
+           player.body.velocity.x = -speed;
+           player.xLeftDest = player.body.x - interval
+       }, this);
+       
+       this.cursors.right.onDown.add(function () {
+           player.body.velocity.x = speed;
+           player.xRightDest = player.body.x + interval
+       }, this);
+
         game.camera.follow(player);
     },
     update: function () {
-        // Move the player at this speed.
-        var speed = 300;
-        var space = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-        
-        if (space.isDown && game.time.now > jumpTimer)
-        {
-            console.log("woot?");
-            player.body.velocity.z = -500;
-            jumpTimer = game.time.now + 150;
+
+        if (player.yUpDest > player.body.y){
+          player.body.velocity.y = 0;
+          player.yUpDest = player.body.y
         }
         
-        if (space.isDown )
-        {
-            player.body.velocity.z = 300
+        if (player.yDownDest < player.body.y){
+          player.body.velocity.y = 0;
+          player.yDownDest = player.body.y
         }
 
-        if (this.cursors.up.isDown) {
-            player.body.velocity.y = -speed;
+        if (player.xLeftDest > player.body.x){
+          player.body.velocity.x = 0;
+          player.xLeftDest = player.body.x
         }
-        else if (this.cursors.down.isDown) {
-            player.body.velocity.y = speed;
+        
+        if (player.xRightDest < player.body.x){
+          player.body.velocity.x = 0;
+          player.xRightDest = player.body.x
         }
-        else {
-            player.body.velocity.y = 0;
-            
+        
+        if (player.yDownDest < player.body.y){
+          player.body.velocity.y = 0;
+          player.yDownDest = player.body.y
         }
 
-        if (this.cursors.left.isDown) {
-            player.body.velocity.x = -speed;
-        }
-        else if (this.cursors.right.isDown) {
-            player.body.velocity.x = speed;
-        }
-        else {
-            player.body.velocity.x = 0;
-        }
         // Our collision and sorting code again.
         game.physics.isoArcade.collide(isoGroup, this.processCallback, this.collisionCallback);
         
