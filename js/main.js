@@ -71,16 +71,12 @@ BasicGame.Boot.prototype =
         loadTiles();
 
         // Create another cube as our 'player', and set it up just like the cubes above.
-        player = game.add.isoSprite(game.physics.isoArcade.bounds.frontY, game.physics.isoArcade.bounds.frontX, 0, 'player', 0, isoGroup);
+        player = game.add.isoSprite(game.physics.isoArcade.bounds.frontY / 2, game.physics.isoArcade.bounds.frontX, 0, 'player', 0, isoGroup);
         player.tint = 0x86bfda;
         player.anchor.set(0.5);
-
         
         game.physics.isoArcade.enable(player);
         player.body.collideWorldBounds = true;
-
-        player.moving = false;
-        player.currentPos = player.body.position
 
         // Set up our controls.
         this.cursors = game.input.keyboard.createCursorKeys();
@@ -92,58 +88,100 @@ BasicGame.Boot.prototype =
             Phaser.Keyboard.DOWN,
             Phaser.Keyboard.SPACEBAR
         ]);
+        
+        player.moving = false;
 
         var space = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
         
        this.cursors.up.onDown.add(function () {
+         if(!player.moving){
            player.body.velocity.y = -speed;
+           player.body.velocity.z = speed / 2;
            player.yUpDest = player.body.y - interval
+           player.moving = true;
+         }
        }, this);
        
        this.cursors.down.onDown.add(function () {
+          if(!player.moving){
            player.body.velocity.y = speed;
-           player.yDownDest = player.body.y + interval
+           player.body.velocity.z = speed / 2;
+           player.yDownDest = player.body.y + interval;
+           player.moving = true;
+         }
        }, this);
        
        this.cursors.left.onDown.add(function () {
+         if(!player.moving){
            player.body.velocity.x = -speed;
-           player.xLeftDest = player.body.x - interval
+           player.body.velocity.z = speed / 2;
+           player.xLeftDest = player.body.x - interval;
+           player.moving = true;
+         }
        }, this);
        
        this.cursors.right.onDown.add(function () {
+         if(!player.moving){
            player.body.velocity.x = speed;
-           player.xRightDest = player.body.x + interval
+           player.body.velocity.z = speed / 2;
+           player.xRightDest = player.body.x + interval;
+           player.moving = true;
+         }
        }, this);
 
-        game.camera.follow(player);
+        game.camera.follow(player,Phaser.Camera.FOLLOW_PLATFORMER);
     },
     update: function () {
+        var zSpeed = -500;
 
         if (player.yUpDest > player.body.y){
           player.body.velocity.y = 0;
           player.yUpDest = player.body.y
+          player.body.velocity.z = zSpeed;
+          player.moving = false;
         }
         
         if (player.yDownDest < player.body.y){
           player.body.velocity.y = 0;
           player.yDownDest = player.body.y
+          player.body.velocity.z = zSpeed;
+          player.moving = false;
         }
 
         if (player.xLeftDest > player.body.x){
           player.body.velocity.x = 0;
           player.xLeftDest = player.body.x
+          player.body.velocity.z = zSpeed;
+          player.moving = false;
         }
         
         if (player.xRightDest < player.body.x){
           player.body.velocity.x = 0;
           player.xRightDest = player.body.x
+          player.body.velocity.z = zSpeed;
+          player.moving = false;
         }
-        
-        if (player.yDownDest < player.body.y){
-          player.body.velocity.y = 0;
-          player.yDownDest = player.body.y
-        }
+      // the y offset and the height of the world are adjusted
+        // to match the highest point the hero has reached
+      //  this.world.setBounds( 0, player.body.y, this.world.width, this.game.height + player.body.y );
+      game.world.setBounds(0, 0, 2048 , player.body.y);
+        // the built in camera follow methods won't work for our needs
+        // this is a custom follow style that will not ever move down, it only moves up
+      //  this.cameraYMin = Math.min( this.cameraYMin, player.body.y - this.game.height + 130 );
+      //  this.camera.y = this.cameraYMin;
 
+        // for each plat form, find out which is the highest
+        // if one goes below the camera view, then create a new one at a distance from the highest one
+        // these are pooled so they are very performant
+        // tileGroup.forEachAlive( function( elem ) {
+        //   this.platformYMin = Math.min( this.platformYMin, elem.y );
+        //   if( elem.y > this.camera.y + this.game.height ) {
+        //     elem.kill();
+        //     this.platformsCreateOne( this.rnd.integerInRange( 0, this.world.width - 50 ), this.platformYMin - 100, 50 );
+        //   }
+        // }, this );
+        //
+        
         // Our collision and sorting code again.
         game.physics.isoArcade.collide(isoGroup, this.processCallback, this.collisionCallback);
         
@@ -152,8 +190,6 @@ BasicGame.Boot.prototype =
         game.iso.topologicalSort(isoGroup);
     },
     render: function () {
-      
-        game.debug.text("Move with cursors, jump with space!", 2, 36, "#ffffff");
         game.debug.text(game.time.fps || '--', 2, 14, "#a7aebe");
     },
     
@@ -172,7 +208,18 @@ BasicGame.Boot.prototype =
 
         game.stage.backgroundColor = '#992d2d';
 
+    },
+    
+    platformsCreateOne: function( x, y, width ) {
+      // this is a helper function since writing all of this out can get verbose elsewhere
+      var platform = this.tileGroup.getFirstDead();
+      platform.reset( x, y );
+      platform.scale.x = width;
+      platform.scale.y = 16;
+      platform.body.immovable = true;
+      return platform;
     }
+    
 };
 
 
