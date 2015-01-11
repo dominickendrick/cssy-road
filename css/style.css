@@ -1,0 +1,15 @@
+#viewport{
+  width:100%;
+  height:100%;
+}
+
+body {
+    background-color:#383f58;
+}
+
+#game{
+  height:600px;
+  width: 800px;
+  margin: 0 auto;
+  border: 1px dotted #a7aebe;
+}
