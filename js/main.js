@@ -68,66 +68,9 @@ BasicGame.Boot.prototype =
                 cube.body.drag.set(0, 0, 0);
             }
         //}
-        loadTiles();
+        Roads.loadTiles();
 
-        // Create another cube as our 'player', and set it up just like the cubes above.
-        player = game.add.isoSprite(game.physics.isoArcade.bounds.frontY / 2, game.physics.isoArcade.bounds.frontX, 0, 'player', 0, isoGroup);
-        player.tint = 0x86bfda;
-        player.anchor.set(0.5);
-        
-        game.physics.isoArcade.enable(player);
-        player.body.collideWorldBounds = true;
-
-        // Set up our controls.
-        this.cursors = game.input.keyboard.createCursorKeys();
-
-        this.game.input.keyboard.addKeyCapture([
-            Phaser.Keyboard.LEFT,
-            Phaser.Keyboard.RIGHT,
-            Phaser.Keyboard.UP,
-            Phaser.Keyboard.DOWN,
-            Phaser.Keyboard.SPACEBAR
-        ]);
-        
-        player.moving = false;
-
-        var space = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-        
-       this.cursors.up.onDown.add(function () {
-         if(!player.moving){
-           player.body.velocity.y = -speed;
-           player.body.velocity.z = speed / 2;
-           player.yUpDest = player.body.y - interval
-           player.moving = true;
-         }
-       }, this);
-       
-       this.cursors.down.onDown.add(function () {
-          if(!player.moving){
-           player.body.velocity.y = speed;
-           player.body.velocity.z = speed / 2;
-           player.yDownDest = player.body.y + interval;
-           player.moving = true;
-         }
-       }, this);
-       
-       this.cursors.left.onDown.add(function () {
-         if(!player.moving){
-           player.body.velocity.x = -speed;
-           player.body.velocity.z = speed / 2;
-           player.xLeftDest = player.body.x - interval;
-           player.moving = true;
-         }
-       }, this);
-       
-       this.cursors.right.onDown.add(function () {
-         if(!player.moving){
-           player.body.velocity.x = speed;
-           player.body.velocity.z = speed / 2;
-           player.xRightDest = player.body.x + interval;
-           player.moving = true;
-         }
-       }, this);
+        player = Player.init(game);
 
         game.camera.follow(player,Phaser.Camera.FOLLOW_PLATFORMER);
     },
