@@ -75,39 +75,13 @@ BasicGame.Boot.prototype =
         game.camera.follow(player,Phaser.Camera.FOLLOW_PLATFORMER);
     },
     update: function () {
-        var zSpeed = -500;
-
-        if (player.yUpDest > player.body.y){
-          player.body.velocity.y = 0;
-          player.yUpDest = player.body.y
-          player.body.velocity.z = zSpeed;
-          player.moving = false;
-        }
         
-        if (player.yDownDest < player.body.y){
-          player.body.velocity.y = 0;
-          player.yDownDest = player.body.y
-          player.body.velocity.z = zSpeed;
-          player.moving = false;
-        }
-
-        if (player.xLeftDest > player.body.x){
-          player.body.velocity.x = 0;
-          player.xLeftDest = player.body.x
-          player.body.velocity.z = zSpeed;
-          player.moving = false;
-        }
-        
-        if (player.xRightDest < player.body.x){
-          player.body.velocity.x = 0;
-          player.xRightDest = player.body.x
-          player.body.velocity.z = zSpeed;
-          player.moving = false;
-        }
+      Player.update(player);
+      
       // the y offset and the height of the world are adjusted
         // to match the highest point the hero has reached
       //  this.world.setBounds( 0, player.body.y, this.world.width, this.game.height + player.body.y );
-      game.world.setBounds(0, 0, 2048 , player.body.y);
+
         // the built in camera follow methods won't work for our needs
         // this is a custom follow style that will not ever move down, it only moves up
       //  this.cameraYMin = Math.min( this.cameraYMin, player.body.y - this.game.height + 130 );
@@ -134,6 +108,14 @@ BasicGame.Boot.prototype =
     },
     render: function () {
         game.debug.text(game.time.fps || '--', 2, 14, "#a7aebe");
+        // isoGroup.forEach(function (tile) {
+        //     game.debug.body(tile, 'rgba(189, 221, 235, 0.6)', false);
+        // });
+        // tileGroup.forEach(function (tile) {
+        //   tile.forEach(function(item){
+        //     game.debug.body(item, 'rgba(189, 221, 235, 0.6)', false);
+        //   });
+        // });
     },
     
     prcessCallback: function (obj1, obj2) {
