@@ -18,9 +18,9 @@ var Player = {
    return this.player;
   },
   
-  update: function(player){
+  update: function(player, yVelocity){
     var zSpeed = -500;
-    var playerVelocity = 30;
+    var playerVelocity = yVelocity;
     
     if(!player.moving){
      player.body.velocity.y = playerVelocity;
@@ -75,6 +75,7 @@ var Player = {
         player.body.velocity.z = speed / 2;
         player.yUpDest = player.body.y - interval
         player.moving = true;
+        Player.checkLocation(player);
       }
       
     }, this);
@@ -105,5 +106,14 @@ var Player = {
         player.moving = true;
       }
     }, this);
+  },
+  
+  checkLocation: function(player){
+    if(player.body.y < 300){
+      GLOBAL_VELOCITY = 200;
+    } else {
+      GLOBAL_VELOCITY = 30;
+    }
+    
   }
 }

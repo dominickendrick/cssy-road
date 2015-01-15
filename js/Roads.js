@@ -17,17 +17,14 @@ var Roads = {
       'wall',
       'window'
   ],
-  count: 0,
-  update: function(yVelocity){
-    
-    this.count += 1
-    if (this.count == 70){
-      this.count = 0;
-      Roads.createNewRoads(yVelocity);
-      game.iso.simpleSort(roadGroup);
-    }   
-    
 
+  update: function(yVelocity){
+        
+    var headY = roadGroup.getChildAt(1).body.y;
+    if( headY >= this.size + 20){
+      Roads.createNewRoads(yVelocity);
+    }
+    
     roadGroup.forEach(function(roads){
       if ( roads.body.onWall() ){
         roads.kill();
@@ -63,5 +60,6 @@ var Roads = {
   
   createNewRoads: function(yVelocity){
     Roads.addRoad(game.physics.isoArcade.bounds.backY + this.size, game.rnd.pick([2,4,5]), yVelocity)
+    game.iso.simpleSort(roadGroup);
   }
 }

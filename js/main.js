@@ -47,7 +47,8 @@ BasicGame.Boot.prototype =
     },
     
     update: function () {    
-      Player.update(player);
+      game.iso.topologicalSort(carsGroup);
+      Player.update(player, GLOBAL_VELOCITY);
       Roads.update(GLOBAL_VELOCITY);
       Cars.update(GLOBAL_VELOCITY);
 

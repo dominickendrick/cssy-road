@@ -10,7 +10,7 @@ var Cars = {
         }
       }
     });
-    game.iso.topologicalSort(carsGroup);
+    
   },
   
   loadCar: function(){   
