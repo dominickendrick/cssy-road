@@ -20,20 +20,21 @@ var Player = {
   
   update: function(player){
     var zSpeed = -500;
+    var playerVelocity = 30;
     
     if(!player.moving){
-     player.body.velocity.y = 30;
+     player.body.velocity.y = playerVelocity;
     }
     
     if (player.yUpDest > player.body.y){
-      player.body.velocity.y = 30;
+      player.body.velocity.y = playerVelocity;
       player.yUpDest = player.body.y
       player.body.velocity.z = zSpeed;
       player.moving = false;
     }
     
     if (player.yDownDest < player.body.y){
-      player.body.velocity.y = 30;
+      player.body.velocity.y = playerVelocity;
       player.yDownDest = player.body.y
       player.body.velocity.z = zSpeed;
       player.moving = false;
