@@ -3,7 +3,7 @@ var Player = {
   player: '',
   
   init: function(game) {
-   this.player = game.add.isoSprite(game.physics.isoArcade.bounds.frontY / 2, game.physics.isoArcade.bounds.frontX / 2, 0, 'player', 0, isoGroup);
+   this.player = game.add.isoSprite(game.physics.isoArcade.bounds.frontY / 2, game.physics.isoArcade.bounds.frontX / 2, 0, 'player', 0, playerGroup);
    this.player.tint = 0x86bfda;
    this.player.anchor.set(0.5);
 
@@ -63,13 +63,14 @@ var Player = {
     player.moving = false;
 
     this.cursors.up.onDown.add(function () {
-      // if(!player.moving){
+       if(!player.moving){
        // player.body.velocity.y = -speed;
         player.body.velocity.z = speed / 2;
       //  player.yUpDest = player.body.y - interval
         // player.moving = true;
-  //     }
-      Roads.createNewRoads();
+        Roads.createNewRoads();
+       }
+      
     }, this);
 
     this.cursors.down.onDown.add(function () {

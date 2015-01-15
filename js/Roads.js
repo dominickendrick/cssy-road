@@ -39,21 +39,21 @@ var Roads = {
     }
   },
   
+  moveCubesY: function(){
+    isoGroup.forEach(function(cubes){
+        cubes.body.velocity.y = 400;
+    });
+  },
+  
   createNewRoads: function(){
-    console.log("called")
+
     Roads.addRoad(game.physics.isoArcade.bounds.backY, game.rnd.pick([0,1,2]))
-    //move current roads back one tile space
-   // tileGroup.getChildAt(30).forEach(function(tiles){ tiles.kill();});
     tileGroup.forEach(function(roads){
-      console.log("roads")
      // roads.isoY += this.size;
       roads.forEach(function(tile){
-        tile.isoY += 32;
-        //tile.body.velocity = 0;
+        game.add.tween(tile).to({ isoY: tile.isoY += 32 }, 10000, Phaser.Easing.Quadratic.InOut, true), 10000;
       });
     });
-    isoGroup.forEach(function(cubes){
-//        cubes.isoY += 32;
-    });
+    Roads.moveCubesY();
   }
 }
