@@ -21,12 +21,12 @@ var Roads = {
   update: function(yVelocity){
     
     this.count += 1
-    if (this.count == 65){
+    if (this.count == 70){
       this.count = 0;
       Roads.createNewRoads(yVelocity);
+      game.iso.simpleSort(roadGroup);
     }   
-    game.iso.simpleSort(roadGroup);
- 
+    
 
     roadGroup.forEach(function(roads){
       if ( roads.body.onWall() ){
