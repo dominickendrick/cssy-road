@@ -1,7 +1,7 @@
 var Roads = {
   
-  size: 34,
-  
+  size: 38,
+  doubleSize: 72,
   tileArray: [
       'water',
       'sand',
@@ -21,7 +21,7 @@ var Roads = {
   update: function(yVelocity){
         
     var headY = roadGroup.getChildAt(1).body.y;
-    if( headY >= this.size + 20){
+    if( headY >= this.doubleSize + 60){
       Roads.createNewRoads(yVelocity);
     }
     
@@ -36,7 +36,7 @@ var Roads = {
 
   loadTiles: function(){  
     var tile;
-    for (var y = this.size; y <= game.physics.isoArcade.bounds.frontY - this.size; y += this.size) {
+    for (var y = this.doubleSize; y <= game.physics.isoArcade.bounds.frontY - this.doubleSize; y += this.doubleSize) {
       Roads.addRoad(y, game.rnd.pick([2,4,5]));
     }
   },
@@ -46,7 +46,8 @@ var Roads = {
     
     for (var x = this.size; x <= game.physics.isoArcade.bounds.frontX - this.size; x += this.size) {
         var tile = game.add.isoSprite(x, y, 0, 'tileset', roadTile, roadGroup);
-
+        var tile2 = game.add.isoSprite(x, y + this.size, 0, 'tileset', roadTile, roadGroup);
+        
         game.physics.isoArcade.enable(tile);
         tile.body.collideWorldBounds = true;
 
@@ -55,6 +56,15 @@ var Roads = {
         tile.body.drag.set(0, 200, 200);
         tile.body.velocity.y = yVelocity;
         tile.smoothed = false;
+        
+        game.physics.isoArcade.enable(tile2);
+        tile2.body.collideWorldBounds = true;
+
+        tile2.body.maxVelocity = new Phaser.Plugin.Isometric.Point3(200,200,200);
+
+        tile2.body.drag.set(0, 200, 200);
+        tile2.body.velocity.y = yVelocity;
+        tile2.smoothed = false;
     }
   },
   

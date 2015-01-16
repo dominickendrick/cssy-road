@@ -1,13 +1,13 @@
-var game = new Phaser.Game(800, 600, Phaser.AUTO, 'game', null, true, false);
+var game = new Phaser.Game(400, 600, Phaser.AUTO, 'game', null, true, false);
 
 var BasicGame = function (game) { };
 
 BasicGame.Boot = function (game) { };
 
 var carsGroup, player;
-var interval = 64;
+var interval = 68;
 var speed = 300;
-var GLOBAL_VELOCITY = 30;
+var GLOBAL_VELOCITY = 50;
 
 BasicGame.Boot.prototype =
 {
@@ -17,10 +17,7 @@ BasicGame.Boot.prototype =
         game.load.image('player', 'assets/cube.png');
         
         game.time.advancedTiming = true;
-        
         game.stage.disableVisibilityChange = true;
-
-        // Add and enable the plug-in.
         game.plugins.add(new Phaser.Plugin.Isometric(game));
 
         game.world.setBounds(0, 0, 2048 , 1024);
@@ -43,7 +40,8 @@ BasicGame.Boot.prototype =
         Cars.loadCar();
         player = Player.init(game);
 
-        game.camera.follow(player,Phaser.Camera.FOLLOW_PLATFORMER);
+        game.camera.follow(player,Phaser.Camera.FOLLOW_TOPDOWN_TIGHT);
+        game.camera.roundPx = false;
     },
     
     update: function () {    

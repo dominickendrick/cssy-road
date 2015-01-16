@@ -8,11 +8,10 @@ var Player = {
    this.player.anchor.set(0.5);
 
    game.physics.isoArcade.enable(this.player);
+   this.player.moveable = false;  
    this.player.body.collideWorldBounds = true;
-   this.player.body.velocity.y = 100; 
    this.player.body.maxVelocity = new Phaser.Plugin.Isometric.Point3(200,200,200);
-  // Add some X and Y drag to make cars slow down after being pushed.
-   this.player.body.drag.set(200, 100, 200);
+   this.player.body.drag.set(200, 200, 200);
    Player.setControls(game, this.player);
    
    return this.player;
@@ -68,17 +67,23 @@ var Player = {
     ]);
 
     player.moving = false;
+    
+    //speed  = distance / time
+    
+    // 30 = 64 / 2.2
 
     this.cursors.up.onDown.add(function () {
+       var offset = (GLOBAL_VELOCITY / 8)
        if(!player.moving){
-        player.body.velocity.y = -speed / 2;
-        player.body.velocity.z = speed / 2;
-        player.yUpDest = player.body.y - interval
+        player.body.velocity.y = -speed - offset;
+        player.body.velocity.z = speed - offset / 2;
+        player.yUpDest = player.body.y - (interval - offset)
         player.moving = true;
         Player.checkLocation(player);
       }
       
     }, this);
+    
 
     this.cursors.down.onDown.add(function () {
       if(!player.moving){
@@ -90,6 +95,7 @@ var Player = {
     }, this);
 
     this.cursors.left.onDown.add(function () {
+      
       if(!player.moving){
         player.body.velocity.x = -speed;
         player.body.velocity.z = speed / 2;
@@ -109,11 +115,13 @@ var Player = {
   },
   
   checkLocation: function(player){
-    if(player.body.y < 300){
-      GLOBAL_VELOCITY = 200;
-    } else {
+    // if(player.body.y < 400){
+    //   GLOBAL_VELOCITY = 120;
+    // } else if (player.body.y < 500){
+    //   GLOBAL_VELOCITY = 150;
+    // } else {
       GLOBAL_VELOCITY = 30;
-    }
+  //  }
     
   }
 }
