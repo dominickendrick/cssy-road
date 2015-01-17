@@ -42,30 +42,25 @@ var Roads = {
   },
 
   addRoad: function(y, type, yVelocity){
-    var roadTile = this.tileArray[type];
-    
+    var roadTile = this.tileArray[type];  
     for (var x = this.size; x <= game.physics.isoArcade.bounds.frontX - this.size; x += this.size) {
         var tile = game.add.isoSprite(x, y, 0, 'tileset', roadTile, roadGroup);
         var tile2 = game.add.isoSprite(x, y + this.size, 0, 'tileset', roadTile, roadGroup);
-        
-        game.physics.isoArcade.enable(tile);
-        tile.body.collideWorldBounds = true;
-
-        tile.body.maxVelocity = new Phaser.Plugin.Isometric.Point3(200,200,200);
-
-        tile.body.drag.set(0, 200, 200);
-        tile.body.velocity.y = yVelocity;
-        tile.smoothed = false;
-        
-        game.physics.isoArcade.enable(tile2);
-        tile2.body.collideWorldBounds = true;
-
-        tile2.body.maxVelocity = new Phaser.Plugin.Isometric.Point3(200,200,200);
-
-        tile2.body.drag.set(0, 200, 200);
-        tile2.body.velocity.y = yVelocity;
-        tile2.smoothed = false;
+        Roads.setRoadTileProperties(tile, yVelocity);
+        Roads.setRoadTileProperties(tile2, yVelocity);
     }
+    Cars.addCar(0, y);
+  },
+  
+  setRoadTileProperties: function(tile, yVelocity){
+    game.physics.isoArcade.enable(tile);
+    tile.body.collideWorldBounds = true;
+
+    tile.body.maxVelocity = new Phaser.Plugin.Isometric.Point3(200,200,200);
+
+    tile.body.drag.set(0, 200, 200);
+    tile.body.velocity.y = yVelocity;
+    tile.smoothed = false;
   },
   
   createNewRoads: function(yVelocity){

@@ -1,4 +1,4 @@
-var game = new Phaser.Game(400, 600, Phaser.AUTO, 'game', null, true, false);
+var game = new Phaser.Game(800, 600, Phaser.AUTO, 'game', null, true, false);
 
 var BasicGame = function (game) { };
 
@@ -37,7 +37,6 @@ BasicGame.Boot.prototype =
         game.physics.isoArcade.useQuadTree = true;
         
         Roads.loadTiles();
-        Cars.loadCar();
         player = Player.init(game);
 
         game.camera.follow(player,Phaser.Camera.FOLLOW_TOPDOWN_TIGHT);
@@ -45,7 +44,7 @@ BasicGame.Boot.prototype =
     },
     
     update: function () {    
-      game.iso.topologicalSort(carsGroup);
+      game.iso.simpleSort(carsGroup);
       Player.update(player, GLOBAL_VELOCITY);
       Roads.update(GLOBAL_VELOCITY);
       Cars.update(GLOBAL_VELOCITY);

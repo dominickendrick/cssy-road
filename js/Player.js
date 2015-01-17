@@ -3,18 +3,19 @@ var Player = {
   player: '',
   
   init: function(game) {
-   this.player = game.add.isoSprite(game.physics.isoArcade.bounds.frontY / 2, game.physics.isoArcade.bounds.frontX / 2, 0, 'player', 0, carsGroup);
-   this.player.tint = 0x86bfda;
-   this.player.anchor.set(0.5);
+    var bounds = game.physics.isoArcade.bounds;
+    this.player = game.add.isoSprite(bounds.frontY / 2, bounds.frontX / 2, 0, 'player', 0, carsGroup);
+    this.player.tint = 0x86bfda;
+    this.player.anchor.set(0.5);
 
-   game.physics.isoArcade.enable(this.player);
-   this.player.moveable = false;  
-   this.player.body.collideWorldBounds = true;
-   this.player.body.maxVelocity = new Phaser.Plugin.Isometric.Point3(200,200,200);
-   this.player.body.drag.set(200, 200, 200);
-   Player.setControls(game, this.player);
-   
-   return this.player;
+    game.physics.isoArcade.enable(this.player);
+    this.player.moveable = false;  
+    this.player.body.collideWorldBounds = true;
+    this.player.body.maxVelocity = new Phaser.Plugin.Isometric.Point3(200,200,200);
+    this.player.body.drag.set(200, 200, 200);
+    Player.setControls(game, this.player);
+
+    return this.player;
   },
   
   update: function(player, yVelocity){
