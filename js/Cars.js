@@ -11,7 +11,7 @@ var Cars = {
     });    
   },
   
-  addCar: function(x,y){   
+  addCar: function(x,y, velocity){   
     car = game.add.isoSprite(x, y, 0, 'bus', 0, carsGroup);
     car.anchor.set(0.5);
     // Enable the physics body on this car.
@@ -19,7 +19,7 @@ var Cars = {
     // Collide with the world bounds so it doesn't go falling forever or fly off the screen!
     car.body.collideWorldBounds = true;
     car.body.setSize(145,40,60,0,40,10);
-    car.body.velocity.x = game.rnd.between(50, 200);
+    car.body.velocity.x = velocity;
     car.body.maxVelocity = new Phaser.Plugin.Isometric.Point3(200,200,200);
     // Add some X and Y drag to make cars slow down after being pushed.
     car.body.drag.set(0, 200, 200);
