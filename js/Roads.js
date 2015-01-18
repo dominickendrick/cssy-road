@@ -26,8 +26,8 @@ var Roads = {
   
   update: function(yVelocity){
         
-    var headY = roadGroup.getChildAt(1).isoY;
-    if( headY >= this.doubleSize){
+    var headY = roadGroup.getChildAt(1).y - this.size;
+    if( headY >= this.size){
       Roads.createNewRoads(yVelocity);
     }
     
@@ -44,9 +44,10 @@ var Roads = {
   loadTiles: function(){  
     var tile = [];
 
-    for (var y = 1; y <= game.physics.isoArcade.bounds.frontY - this.doubleSize; y += this.doubleSize) {
+    for (var y = this.size + 1; y <= game.physics.isoArcade.bounds.frontY - this.doubleSize; y += this.doubleSize) {
       var tiles = Roads.addRoad(y, game.rnd.pick([0,2,4]));
-      this.grid.push(tiles);
+      //add in reverse order to make indexing additions easier : /
+      this.grid.unshift(tiles);
     }
     console.log(this.grid);
   },
@@ -56,9 +57,9 @@ var Roads = {
     var roadTile = this.tileArray[tileType];  
     var tileBuffer = [];
     var tileSet = [];
-    for (var x = 0; x <= game.physics.isoArcade.bounds.frontX - this.size; x += this.size) {
+    for (var x = 1; x <= game.physics.isoArcade.bounds.frontX - this.size; x += this.size) {
         var tile = game.add.isoSprite(x, y, 0, 'tileset', roadTile, roadGroup);
-        var tile2 = game.add.isoSprite(x, y + this.size, 0, 'tileset', roadTile, roadGroup);
+        var tile2 = game.add.isoSprite(x, y + this.size - 1, 0, 'tileset', roadTile, roadGroup);
         Roads.setRoadTileProperties(tile, yVelocity);
         Roads.setRoadTileProperties(tile2, yVelocity);
         
@@ -96,7 +97,8 @@ var Roads = {
   },
   
   createNewRoads: function(yVelocity){
-    Roads.addRoad(game.physics.isoArcade.bounds.backY, game.rnd.pick([2,4,5]), yVelocity)
+    var tiles = Roads.addRoad(game.physics.isoArcade.bounds.backY + this.doubleSize, game.rnd.pick([2,4,5]), yVelocity)
+    this.grid.push(tiles);
     game.iso.simpleSort(roadGroup);
   }
 }
