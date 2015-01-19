@@ -1,7 +1,7 @@
 var Player = {
   
   player: '',
-  
+  snapLocation: { x: 0, y: 0},
   init: function(game) {
     var bounds = game.physics.isoArcade.bounds;
     this.player = game.add.isoSprite(bounds.frontY / 2, bounds.frontX / 2, 0, 'player', 0, carsGroup);
@@ -14,18 +14,28 @@ var Player = {
   },
   
   currentLocation: [7,7],
+  
   moving: false,
   update: function(player, yVelocity){
-
     this.snapToGrid(this.currentLocation);
   },
   
   snapToGrid: function(currentLocation){
     var gridCell = Roads.grid[currentLocation[0]][currentLocation[1]];
-    var snapLocation = Roads.gridCellCenter(gridCell);
-    
-    player.isoX = snapLocation[0];
-    player.isoY = snapLocation[1];
+    var destination = Roads.gridCellCenter(gridCell);
+    maxTime = 100;
+
+    this.snapLocation.x = destination[0];
+    this.snapLocation.y = destination[1];    
+
+    this._angle = Math.atan2( this.snapLocation.y - player.isoY,  this.snapLocation.x - player.isoX);
+
+    player.isoX = Math.cos(this._angle) * speed;
+    player.isoY = Math.sin(this._angle) * speed;
+
+    return this._angle;
+
+
   },
   
   getGridLocation: function (player) {

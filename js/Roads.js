@@ -46,7 +46,7 @@ var Roads = {
 
     for (var y = this.size + 1; y <= game.physics.isoArcade.bounds.frontY - this.doubleSize; y += this.doubleSize) {
       var tiles = Roads.addRoad(y, game.rnd.pick([0,2,4]));
-      //add in reverse order to make indexing additions easier : /
+      //add in reverse order to make indexing additions easier : /r
       this.grid.unshift(tiles);
     }
     console.log(this.grid);
@@ -57,19 +57,22 @@ var Roads = {
     var roadTile = this.tileArray[tileType];  
     var tileBuffer = [];
     var tileSet = [];
+    var count = 1;
     for (var x = 1; x <= game.physics.isoArcade.bounds.frontX - this.size; x += this.size) {
         var tile = game.add.isoSprite(x, y, 0, 'tileset', roadTile, roadGroup);
         var tile2 = game.add.isoSprite(x, y + this.size - 1, 0, 'tileset', roadTile, roadGroup);
         Roads.setRoadTileProperties(tile, yVelocity);
         Roads.setRoadTileProperties(tile2, yVelocity);
         
-        if (x % (this.size * 2) || x == this.size){
+        if (count == 2){
           tileSet.push(tile, tile2);
           tileBuffer.push(tileSet);
           tileSet = [];
+          count = 0;
         } else {
           tileSet.push(tile, tile2);
         }
+        count += 1;
     }
     if (roadTile == this.tileArray[2]){
       Roads.loadCars(y, orientation);
