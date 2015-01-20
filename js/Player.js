@@ -2,9 +2,11 @@ var Player = {
   
   player: '',
   snapLocation: { x: 0, y: 0},
+  moving: false,
   init: function(game) {
     var bounds = game.physics.isoArcade.bounds;
-    this.player = game.add.isoSprite(bounds.frontY / 2, bounds.frontX / 2, 0, 'player', 0, carsGroup);
+   // this.player = game.add.isoSprite(bounds.frontY / 2, bounds.frontX / 2, 0, 'player', 0, carsGroup);
+    this.player = game.add.isoSprite(bounds.frontY/ 2, bounds.frontX, 0, 'player', 0, carsGroup);
     this.player.tint = 0x86bfda;
     this.player.anchor.set(0.5);
 
@@ -21,20 +23,30 @@ var Player = {
   },
   
   snapToGrid: function(currentLocation){
+
     var gridCell = Roads.grid[currentLocation[0]][currentLocation[1]];
     var destination = Roads.gridCellCenter(gridCell);
-    maxTime = 100;
-
     this.snapLocation.x = destination[0];
-    this.snapLocation.y = destination[1];    
+    this.snapLocation.y = destination[1];
 
-    this._angle = Math.atan2( this.snapLocation.y - player.isoY,  this.snapLocation.x - player.isoX);
-
-    player.isoX = Math.cos(this._angle) * speed;
-    player.isoY = Math.sin(this._angle) * speed;
-
-    return this._angle;
-
+    if (!this.moving){
+      player.isoX = this.snapLocation.x;
+      player.isoY = this.snapLocation.y;
+    } else {
+      if (player.isoY > (this.snapLocation.y - (size + 5)) && player.isoZ < 20) {
+        player.isoZ += 2;
+        player.isoY -= 7;        
+      } else if (player.isoY < (this.snapLocation.y - (size + 5)) && player.isoZ > 0){
+        player.isoZ -= 2;
+        player.isoY -= 4;
+      } else {
+        player.isoZ = 0;
+        player.isoX = this.snapLocation.x;
+        player.isoY = this.snapLocation.y;
+        this.moving = false;
+      }
+      
+    }
 
   },
   
@@ -63,6 +75,7 @@ var Player = {
     // 30 = 64 / 2.2
 
     this.cursors.up.onDown.add(function () {
+      this.moving = true;
       this.currentLocation[0] += 1;
       this.checkLocation(player);
     }, this);
@@ -82,7 +95,7 @@ var Player = {
   },
   
   checkLocation: function(player){
-    if(player.y < 300){
+    if(player.y < 400){
       GLOBAL_VELOCITY = 20;
     } else if (player.y < 500){
       GLOBAL_VELOCITY = 400;
