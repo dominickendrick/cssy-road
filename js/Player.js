@@ -3,6 +3,7 @@ var Player = {
   player: '',
   snapLocation: { x: 0, y: 0},
   moving: false,
+  jumping: false,
   init: function(game) {
     var bounds = game.physics.isoArcade.bounds;
    // this.player = game.add.isoSprite(bounds.frontY / 2, bounds.frontX / 2, 0, 'player', 0, carsGroup);
@@ -23,31 +24,67 @@ var Player = {
   },
   
   snapToGrid: function(currentLocation){
-
     var gridCell = Roads.grid[currentLocation[0]][currentLocation[1]];
     var destination = Roads.gridCellCenter(gridCell);
     this.snapLocation.x = destination[0];
     this.snapLocation.y = destination[1];
-
+    
     if (!this.moving){
-      player.isoX = this.snapLocation.x;
-      player.isoY = this.snapLocation.y;
+      this.snapStop();
     } else {
-      if (player.isoY > (this.snapLocation.y - (size + 5)) && player.isoZ < 20) {
-        player.isoZ += 2;
-        player.isoY -= 7;        
-      } else if (player.isoY < (this.snapLocation.y - (size + 5)) && player.isoZ > 0){
-        player.isoZ -= 2;
-        player.isoY -= 4;
-      } else {
-        player.isoZ = 0;
-        player.isoX = this.snapLocation.x;
-        player.isoY = this.snapLocation.y;
-        this.moving = false;
-      }
-      
+      this.snapJump();
     }
-
+  },
+  
+  snapJump: function(){
+    var startMod;
+    var endMod;
+    var moveAxis;
+    var jumpFunc;
+    switch (this.direction) {
+      case "up":
+        startMod = player.isoY > (this.snapLocation.y - (size));
+        endMod = player.isoY < (this.snapLocation.y - (size));
+        moveAxis = "isoY";
+        jumpFunc = function(subject, value){player[subject] -= value};
+        break;
+      case "down":
+        startMod = player.isoY < (this.snapLocation.y + (size + 5));
+        endMod = player.isoY > (this.snapLocation.y + (size + 5));
+        moveAxis = "isoY";
+        jumpFunc = function(subject, value){player[subject] += value};
+        break;
+      case "left":
+        startMod = player.isoX > (this.snapLocation.x - (size + 5));
+        endMod = player.isoX < (this.snapLocation.x - (size + 5));
+        moveAxis = 'isoX';
+        jumpFunc = function(subject, value){player[subject] -= value};
+        break;
+      case "right":
+        startMod = player.isoX > (this.snapLocation.y + (size + 5));
+        endMod = player.isoX < (this.snapLocation.y + (size + 5));   
+        moveAxis = 'isoX';
+        jumpFunc = function(subject, value){player[subject] += value};  
+        break;
+    }  
+    
+    if (startMod && player.isoZ < 20) {
+      player.isoZ += 2;
+      jumpFunc(moveAxis,7);
+    } else if (endMod && player.isoZ > 0){
+      player.isoZ -= 2;
+      jumpFunc(player[axis],3);
+    } else {
+      this.snapStop();
+    }
+    
+  },
+  
+  snapStop: function(){
+    player.isoZ = 0;
+    player.isoX = this.snapLocation.x;
+    player.isoY = this.snapLocation.y;
+    this.moving = false;
   },
   
   getGridLocation: function (player) {
@@ -70,27 +107,30 @@ var Player = {
 
     player.moving = false;
     
-    //speed  = distance / time
-    
-    // 30 = 64 / 2.2
-
     this.cursors.up.onDown.add(function () {
       this.moving = true;
       this.currentLocation[0] += 1;
+      this.direction = "up";
       this.checkLocation(player);
     }, this);
     
 
     this.cursors.down.onDown.add(function () {
+      this.moving = true;
       this.currentLocation[0] -= 1;
+      this.direction = "down";
     }, this);
 
     this.cursors.left.onDown.add(function () {
+      this.moving = true;
       this.currentLocation[1] -= 1;
+      this.direction = "left";
     }, this);
 
     this.cursors.right.onDown.add(function () {
+      this.moving = true;
       this.currentLocation[1] += 1;
+      this.direction = "right";
     }, this);
   },
   
