@@ -49,7 +49,6 @@ var Roads = {
       //add in reverse order to make indexing additions easier : /r
       this.grid.unshift(tiles);
     }
-    console.log(this.grid);
   },
 
   addRoad: function(y, tileType, yVelocity){
@@ -75,16 +74,17 @@ var Roads = {
         count += 1;
     }
     if (roadTile == this.tileArray[2]){
-      Roads.loadCars(y, orientation);
+      Roads.loadCars(y, orientation, tileBuffer);
     }
     return tileBuffer;
   },
   
-  loadCars: function(y, orientation){
+  loadCars: function(y, orientation, tile){
     if (orientation == "right"){
-      Cars.addCar(game.physics.isoArcade.bounds.frontX - (this.doubleSize * 2), y - (this.size + 10), 0 - game.rnd.between(50, 200));
+      var frontX = game.physics.isoArcade.bounds.frontX
+      Cars.addCars(frontX - (this.doubleSize * 2), y - (this.size + 10), 0 - game.rnd.between(50, 200), tile.pop()[0]);
     } else {
-      Cars.addCar((this.doubleSize * 2), y - (this.size + 10), game.rnd.between(50, 200));
+      Cars.addCars((this.doubleSize * 2), y - (this.size + 10), game.rnd.between(50, 200), tile[0][0]);
     }
   },
   

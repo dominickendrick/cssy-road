@@ -10,7 +10,8 @@ var Player = {
     this.player = game.add.isoSprite(bounds.frontY/ 2, bounds.frontX, 0, 'player', 0, carsGroup);
     this.player.tint = 0x86bfda;
     this.player.anchor.set(0.5);
-
+    game.physics.isoArcade.enable(this.player);
+    this.player.body.moves = false;
     Player.setControls(game, this.player);
 
     return this.player;
@@ -73,7 +74,7 @@ var Player = {
       jumpFunc(moveAxis,7);
     } else if (endMod && player.isoZ > 0){
       player.isoZ -= 2;
-      jumpFunc(player[axis],3);
+      jumpFunc(player[moveAxis],3);
     } else {
       this.snapStop();
     }
@@ -85,6 +86,7 @@ var Player = {
     player.isoX = this.snapLocation.x;
     player.isoY = this.snapLocation.y;
     this.moving = false;
+    game.iso.simpleSort(carsGroup);
   },
   
   getGridLocation: function (player) {
@@ -135,13 +137,13 @@ var Player = {
   },
   
   checkLocation: function(player){
-    if(player.y < 400){
-      GLOBAL_VELOCITY = 20;
-    } else if (player.y < 500){
-      GLOBAL_VELOCITY = 400;
-    } else {
-      GLOBAL_VELOCITY = 30;
-    }
-    
+    // if(player.y < 400){
+    //   GLOBAL_VELOCITY = 20;
+    // } else if (player.y < 500){
+    //   GLOBAL_VELOCITY = 400;
+    // } else {
+    //   GLOBAL_VELOCITY = 30;
+    // }
+    GLOBAL_VELOCITY = 30;
   }
 }

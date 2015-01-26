@@ -11,8 +11,12 @@ var Cars = {
     });    
   },
   
-  addCar: function(x,y, velocity){   
-    car = game.add.isoSprite(x, y, 0, 'bus', 0, carsGroup);
+  addCars: function(x,y, velocity, tile){   
+    game.time.events.repeat(Phaser.Timer.SECOND * game.rnd.pick([3, 4, 5]), 100, this.createCar,this, x, tile, velocity);
+  },
+  
+  createCar: function(x,tile,velocity){
+    car = game.add.isoSprite(x, tile.isoY - (size + 5), 0, 'bus', 0, carsGroup);
     car.anchor.set(0.5);
     // Enable the physics body on this car.
     game.physics.isoArcade.enable(car);
@@ -23,6 +27,6 @@ var Cars = {
     car.body.maxVelocity = new Phaser.Plugin.Isometric.Point3(200,200,200);
     // Add some X and Y drag to make cars slow down after being pushed.
     car.body.drag.set(0, 200, 200);
-    game.iso.simpleSort(carsGroup);
-  } 
+    game.iso.topologicalSort(carsGroup,5);
+  }
 }
