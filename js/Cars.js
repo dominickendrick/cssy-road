@@ -28,5 +28,6 @@ var Cars = {
     // Add some X and Y drag to make cars slow down after being pushed.
     car.body.drag.set(0, 200, 200);
     game.iso.topologicalSort(carsGroup,5);
+    return car;
   }
 }
