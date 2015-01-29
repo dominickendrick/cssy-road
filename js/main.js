@@ -12,6 +12,21 @@ var GLOBAL_VELOCITY = 50;
 var size = 38;
 var doubleSize = 76;
 
+//  The Google WebFont Loader will look for this object, so create it before loading the script.
+WebFontConfig = {
+
+    //  'active' means all requested fonts have finished loading
+    //  We set a 1 second delay before calling 'createText'.
+    //  For some reason if we don't the browser cannot render the text the first time it's created.
+    active: function() { game.time.events.add(10, Player.showLabels, this, game); },
+
+    //  The Google Fonts we want to load (specify as many as you like in the array)
+    google: {
+      families: ['VT323']
+    }
+
+};
+
 BasicGame.Boot.prototype =
 {
 
@@ -23,13 +38,14 @@ BasicGame.Boot.prototype =
         game.stage.disableVisibilityChange = true;
         game.plugins.add(new Phaser.Plugin.Isometric(game));
 
-        game.world.setBounds(0, 0, 2048 , 1024);
+        game.world.setBounds(0, 0, 2548 , 1574);
         // Start the IsoArcade physics system.
         game.physics.startSystem(Phaser.Plugin.Isometric.ISOARCADE);
         
         game.load.atlasJSONHash('tileset', 'assets/tileset.png', 'assets/tileset.json');
 
         game.iso.anchor.setTo(0.5, 0);
+        game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
 
     },
     create: function () {
@@ -44,6 +60,7 @@ BasicGame.Boot.prototype =
 
         game.camera.follow(player,Phaser.Camera.FOLLOW_TOPDOWN_TIGHT);
         game.camera.roundPx = false;
+        
     },
     
     update: function () {    
@@ -61,8 +78,7 @@ BasicGame.Boot.prototype =
         // carsGroup.forEach(function (tile) {
         //     game.debug.body(tile, 'rgba(189, 221, 235, 0.6)', false);
         // });
-    },
-    
+    }
     
 };
 

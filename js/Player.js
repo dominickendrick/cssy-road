@@ -4,6 +4,7 @@ var Player = {
   snapLocation: { x: 0, y: 0},
   moving: false,
   jumping: false,
+  playerScore: 0,
   init: function(game) {
     var bounds = game.physics.isoArcade.bounds;
    // this.player = game.add.isoSprite(bounds.frontY / 2, bounds.frontX / 2, 0, 'player', 0, carsGroup);
@@ -17,7 +18,7 @@ var Player = {
     return this.player;
   },
   
-  currentLocation: [7,7],
+  currentLocation: [0,7],
   
   moving: false,
   update: function(player, yVelocity){
@@ -114,6 +115,7 @@ var Player = {
       this.currentLocation[0] += 1;
       this.direction = "up";
       this.checkLocation(player);
+      this.updateScore(game);
     }, this);
     
 
@@ -145,5 +147,28 @@ var Player = {
     //   GLOBAL_VELOCITY = 30;
     // }
     GLOBAL_VELOCITY = 30;
-  }
+  },
+  updateScore: function(game){
+    if (game.scoreCount.text == (this.currentLocation[0] - 1) || game.scoreCount.text == 0){
+      game.scoreCount.text = this.currentLocation[0]
+    }
+  },
+  showLabels: function(game) {
+      var style = { font: "20px Arial", fill: "#fff", align: "center" };
+      //score text
+      var text = "Score :";
+      game.scoreLabel = game.add.text(game.width-150, 10, text, style);
+      Player.fontStyle(game.scoreLabel)
+      
+      var count = "0";
+      game.scoreCount = game.add.text(game.width-50, 10, count, style);
+      Player.fontStyle(game.scoreCount)
+  },
+  fontStyle: function(item){
+    item.fixedToCamera = true;
+    item.font = 'VT323';
+    item.fontSize = 30;
+    item.stroke = '#000000';
+    item.strokeThickness = 6;
+  },
 }

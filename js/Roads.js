@@ -59,7 +59,7 @@ var Roads = {
     var actTile;
     var count = 0;
     for (var x = 1; x <= game.physics.isoArcade.bounds.frontX - this.size; x += this.size) {
-        if (x <= 78 || x >= 837) { actTile = this.tileArray[8]; } else { actTile = roadTile } 
+        if (x <= this.size * 8 || x >= this.size * 26) { actTile = this.tileArray[8]; } else { actTile = roadTile } 
         var tile = game.add.isoSprite(x, y, 0, 'tileset', actTile, roadGroup);
         var tile2 = game.add.isoSprite(x, y + this.size - 1, 0, 'tileset', actTile, roadGroup);
         Roads.setRoadTileProperties(tile, yVelocity);
