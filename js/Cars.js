@@ -27,7 +27,7 @@ var Cars = {
     car.body.maxVelocity = new Phaser.Plugin.Isometric.Point3(200,200,200);
     // Add some X and Y drag to make cars slow down after being pushed.
     car.body.drag.set(0, 200, 200);
-    game.iso.topologicalSort(carsGroup,5);
+    game.iso.topologicalSort(carsGroup, 20);
     return car;
   }
 }

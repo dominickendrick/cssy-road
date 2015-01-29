@@ -86,7 +86,7 @@ var Player = {
     player.isoX = this.snapLocation.x;
     player.isoY = this.snapLocation.y;
     this.moving = false;
-    game.iso.topologicalSort(carsGroup, 5);
+    game.iso.topologicalSort(carsGroup, 20);
   },
   
   getGridLocation: function (player) {
