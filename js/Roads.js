@@ -26,7 +26,7 @@ var Roads = {
   
   update: function(yVelocity){
         
-    var headY = roadGroup.getChildAt(1).y - this.size;
+    var headY = roadGroup.getChildAt(1).y - this.size + 10;
     if( headY >= this.size){
       Roads.createNewRoads(yVelocity);
     }
@@ -56,10 +56,12 @@ var Roads = {
     var roadTile = this.tileArray[tileType];  
     var tileBuffer = [];
     var tileSet = [];
-    var count = 1;
+    var actTile;
+    var count = 0;
     for (var x = 1; x <= game.physics.isoArcade.bounds.frontX - this.size; x += this.size) {
-        var tile = game.add.isoSprite(x, y, 0, 'tileset', roadTile, roadGroup);
-        var tile2 = game.add.isoSprite(x, y + this.size - 1, 0, 'tileset', roadTile, roadGroup);
+        if (x <= 78 || x >= 837) { actTile = this.tileArray[8]; } else { actTile = roadTile } 
+        var tile = game.add.isoSprite(x, y, 0, 'tileset', actTile, roadGroup);
+        var tile2 = game.add.isoSprite(x, y + this.size - 1, 0, 'tileset', actTile, roadGroup);
         Roads.setRoadTileProperties(tile, yVelocity);
         Roads.setRoadTileProperties(tile2, yVelocity);
         
@@ -73,7 +75,7 @@ var Roads = {
         }
         count += 1;
     }
-    if (roadTile == this.tileArray[2]){
+    if (roadTile == this.tileArray[4]){
       Roads.loadCars(y, orientation, tileBuffer);
     }
     return tileBuffer;
@@ -93,8 +95,8 @@ var Roads = {
     tile.body.collideWorldBounds = true;
 
     tile.body.maxVelocity = new Phaser.Plugin.Isometric.Point3(200,200,200);
-
-    tile.body.drag.set(0, 200, 200);
+    tile.body.immovable = true;
+    tile.body.drag.set(200, 200, 200);
     tile.body.velocity.y = yVelocity;
     tile.smoothed = false;
   },

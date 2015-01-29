@@ -53,6 +53,7 @@ BasicGame.Boot.prototype =
       Cars.update(GLOBAL_VELOCITY);
 
       game.physics.isoArcade.collide(carsGroup, player);
+      game.physics.isoArcade.collide(roadGroup, player);
 
     },
     render: function () {
