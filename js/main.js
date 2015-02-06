@@ -31,6 +31,7 @@ BasicGame.Boot.prototype =
 {
 
     preload: function () {
+      
         game.load.image('bus', 'assets/bus1.png');
         game.load.image('player', 'assets/cube.png');
         
@@ -44,11 +45,14 @@ BasicGame.Boot.prototype =
         
         game.load.atlasJSONHash('tileset', 'assets/tileset.png', 'assets/tileset.json');
 
-        game.iso.anchor.setTo(0.5, 0);
+        //game.iso.anchor.setTo(0.5, 0);
+        game.iso.anchor.setTo(0.6, 0);
         game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
+//        game.iso.projectionAngle = Math.PI * 5;
 
     },
     create: function () {
+      
         roadGroup = game.add.group();
         carsGroup = game.add.group();
 
