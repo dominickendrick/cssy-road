@@ -3,7 +3,7 @@
 
 * Copyright (c) 2014 Lewis Lane
 
-* Permission is hereby granted, free of charge, to any person obtaining a copy
+‹* Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
 * in the Software without restriction, including without limitation the rights
 * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
@@ -1796,13 +1796,26 @@ Phaser.Plugin.Isometric.Projector.prototype = {
             out = new Phaser.Point();
         }
 
-        var yAngle = 14.9
-        var xAngle = 43.7
+        var xAngleDeg = 60
+        var yAngleDeg = 15
+
+
+        // var xAngleDeg = 29
+        // var yAngleDeg = 29
+        
+        var xAngle = Phaser.Math.degToRad (xAngleDeg)
+        var yAngle = Phaser.Math.degToRad (yAngleDeg)
+
+        xAngle = yAngle = Phaser.Plugin.Isometric.CLASSIC
 
         var scales = this.getScaleFactors(xAngle, yAngle)
 
-        out.x = (point3.x * Math.cos(xAngle)) + (point3.y * scales.rightScale * Math.cos(yAngle))
-        out.y = (point3.y * Math.sin(yAngle)) - (point3.x * scales.leftScale * Math.sin(xAngle)) - (point3.z * scales.centerScale)
+        out.x = (point3.x * Math.cos(xAngle) * scales.yScale) + (point3.y * scales.xScale * Math.cos(yAngle))
+        out.y = (point3.y * Math.sin(yAngle) * scales.xScale) - (point3.x * scales.yScale * Math.sin(xAngle)) + point3.z
+
+        out.x = (point3.x * Math.cos(xAngle) * scales.yScale) + (point3.y * scales.xScale * Math.cos(yAngle))
+        out.y = (point3.y * Math.sin(yAngle) * scales.xScale) - (point3.x * scales.yScale * Math.sin(xAngle)) + point3.z
+
 
         out.x += this.game.world.width * this.anchor.x;
         out.y += this.game.world.height * this.anchor.y;
@@ -1819,24 +1832,15 @@ Phaser.Plugin.Isometric.Projector.prototype = {
      */
 
     getScaleFactors: function(xAngle, yAngle) {
-        
-        function degTan (x) { return Math.tan (Phaser.Math.degToRad (x)) }
-
-        var places = 6;
-
-        var leftIncline = parseFloat(yAngle)
-        var rightIncline = parseFloat(xAngle)
-        var centerIncline = 90 - leftIncline - rightIncline
-        var leftTan = degTan(leftIncline)
-        var centerTan = degTan(centerIncline)
-        var rightTan = degTan(rightIncline)
+        var centerIncline = Math.PI / 2 - xAngle - yAngle
+        var leftTan = Math.tan(yAngle)
+        var centerTan = Math.tan(centerIncline)
+        var rightTan = Math.tan(xAngle)
         
         return {
-            "leftScale": Math.sqrt (1.0 - leftTan * centerTan).toFixed(places),
-            "centerScale": Math.sqrt (1.0 - rightTan * leftTan).toFixed(places),
-            "rightScale": Math.sqrt (1.0 - centerTan * rightTan).toFixed(places)
+            "xScale": Math.sqrt (1.0 - leftTan * centerTan),
+            "yScale": Math.sqrt (1.0 - centerTan * rightTan)
         }
-
     },
 
     /**
