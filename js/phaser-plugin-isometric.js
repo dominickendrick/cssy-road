@@ -1778,9 +1778,9 @@ Phaser.Plugin.Isometric.Projector = function (game, projectionAngle) {
 };
 
 //  Projection angles
-Phaser.Plugin.Isometric.CLASSIC = {"l": Math.atan(0.5), "r": Math.atan(0.5) };
-Phaser.Plugin.Isometric.ISOMETRIC = {"l": Math.PI / 6, r: Math.PI / 6 };
-Phaser.Plugin.Isometric.MILITARY =  {"l": Math.PI / 4, "r": Math.PI / 4 };
+Phaser.Plugin.Isometric.CLASSIC = Math.atan(0.5);
+Phaser.Plugin.Isometric.ISOMETRIC = Math.PI / 6;
+Phaser.Plugin.Isometric.MILITARY =  Math.PI / 4;
 
 Phaser.Plugin.Isometric.Projector.prototype = {
 
@@ -1796,43 +1796,47 @@ Phaser.Plugin.Isometric.Projector.prototype = {
             out = new Phaser.Point();
         }
 
+        var yAngle = 14.9
+        var xAngle = 43.7
 
-        var places = 6;
+        var scales = this.getScaleFactors(xAngle, yAngle)
 
-        function rad_to_deg (x) { return x * 180.0 / Math.PI; }
-        function deg_to_rad (x) { return x * Math.PI / 180.0; }
-        function deg_cos (x) { return Math.cos (deg_to_rad (x)); }
-        function deg_tan (x) { return Math.tan (deg_to_rad (x)); }
-        function deg_acos (x) { return rad_to_deg (Math.acos (x)); }
-        function deg_atan (x) { return rad_to_deg (Math.atan (x)); }
-
-        function do_inc (left, right) {
-            var LeftIncline = parseFloat (left);
-            var RightIncline = parseFloat (right);
-            var CenterIncline = 90 - LeftIncline - RightIncline;
-            var LeftTan = deg_tan (LeftIncline);
-            var CenterTan = deg_tan (CenterIncline);
-            var RightTan = deg_tan (RightIncline);
-            var LeftScale = Math.sqrt (1.0 - LeftTan * CenterTan);  
-            var CenterScale = Math.sqrt (1.0 - RightTan * LeftTan); 
-            var RightScale = Math.sqrt (1.0 - CenterTan * RightTan);  
-
-            return { "ls": LeftScale.toFixed (places), "cs": CenterScale.toFixed (places), "rs": RightScale.toFixed (places) }
-
-        }
-
-        var left = 14.9
-        var right = 43.7
-
-        var scales = do_inc(left, right)
-
-        out.x = (point3.x * Math.cos(right)) + (point3.y * scales.rs * Math.cos(left))
-        out.y = (point3.y * Math.sin(left)) - (point3.x * scales.ls * Math.sin(right)) - point3.z
+        out.x = (point3.x * Math.cos(xAngle)) + (point3.y * scales.rightScale * Math.cos(yAngle))
+        out.y = (point3.y * Math.sin(yAngle)) - (point3.x * scales.leftScale * Math.sin(xAngle)) - (point3.z * scales.centerScale)
 
         out.x += this.game.world.width * this.anchor.x;
         out.y += this.game.world.height * this.anchor.y;
 
         return out;
+    },
+
+    /**
+     * Use axonometric projection to transform a 3D Point3 coordinate to a 2D Point coordinate, ignoring the z-axis. If given the coordinates will be set into the object, otherwise a brand new Point object will be created and returned.
+     * @method Phaser.Plugin.Isometric.Projector#getScaleFactors
+     * @param {number} xAngle - The angle to transform the x axis
+     * @param {number} yAngle - The angle to transform the y axis
+     * @return {Object} The scales for each axis
+     */
+
+    getScaleFactors: function(xAngle, yAngle) {
+        
+        function degTan (x) { return Math.tan (Phaser.Math.degToRad (x)) }
+
+        var places = 6;
+
+        var leftIncline = parseFloat(yAngle)
+        var rightIncline = parseFloat(xAngle)
+        var centerIncline = 90 - leftIncline - rightIncline
+        var leftTan = degTan(leftIncline)
+        var centerTan = degTan(centerIncline)
+        var rightTan = degTan(rightIncline)
+        
+        return {
+            "leftScale": Math.sqrt (1.0 - leftTan * centerTan).toFixed(places),
+            "centerScale": Math.sqrt (1.0 - rightTan * leftTan).toFixed(places),
+            "rightScale": Math.sqrt (1.0 - centerTan * rightTan).toFixed(places)
+        }
+
     },
 
     /**
