@@ -1,7 +1,7 @@
-{"frames": [
+{"frames": {
 
+"grass":
 {
-	"filename": "grass",
 	"frame": {"x":2,"y":2,"w":105,"h":88},
 	"rotated": false,
 	"trimmed": true,
@@ -9,8 +9,8 @@
 	"sourceSize": {"w":132,"h":97},
 	"pivot": {"x":0.5,"y":0.5}
 },
+"pavement_bottom":
 {
-	"filename": "pavement_bottom",
 	"frame": {"x":109,"y":2,"w":105,"h":88},
 	"rotated": false,
 	"trimmed": true,
@@ -18,8 +18,8 @@
 	"sourceSize": {"w":132,"h":97},
 	"pivot": {"x":0.5,"y":0.5}
 },
+"pavement_center":
 {
-	"filename": "pavement_center",
 	"frame": {"x":216,"y":2,"w":105,"h":88},
 	"rotated": false,
 	"trimmed": true,
@@ -27,8 +27,8 @@
 	"sourceSize": {"w":132,"h":97},
 	"pivot": {"x":0.5,"y":0.5}
 },
+"pavement_top":
 {
-	"filename": "pavement_top",
 	"frame": {"x":323,"y":2,"w":105,"h":88},
 	"rotated": false,
 	"trimmed": true,
@@ -36,8 +36,8 @@
 	"sourceSize": {"w":132,"h":97},
 	"pivot": {"x":0.5,"y":0.5}
 },
+"road_bottom":
 {
-	"filename": "road_bottom",
 	"frame": {"x":430,"y":2,"w":105,"h":88},
 	"rotated": false,
 	"trimmed": true,
@@ -45,8 +45,8 @@
 	"sourceSize": {"w":132,"h":97},
 	"pivot": {"x":0.5,"y":0.5}
 },
+"road_center":
 {
-	"filename": "road_center",
 	"frame": {"x":537,"y":2,"w":105,"h":88},
 	"rotated": false,
 	"trimmed": true,
@@ -54,8 +54,8 @@
 	"sourceSize": {"w":132,"h":97},
 	"pivot": {"x":0.5,"y":0.5}
 },
+"road_single":
 {
-	"filename": "road_single",
 	"frame": {"x":644,"y":2,"w":105,"h":88},
 	"rotated": false,
 	"trimmed": true,
@@ -63,8 +63,8 @@
 	"sourceSize": {"w":132,"h":97},
 	"pivot": {"x":0.5,"y":0.5}
 },
+"road_top":
 {
-	"filename": "road_top",
 	"frame": {"x":751,"y":2,"w":105,"h":88},
 	"rotated": false,
 	"trimmed": true,
@@ -72,15 +72,15 @@
 	"sourceSize": {"w":132,"h":97},
 	"pivot": {"x":0.5,"y":0.5}
 },
+"water":
 {
-	"filename": "water",
 	"frame": {"x":858,"y":2,"w":105,"h":88},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":14,"y":6,"w":105,"h":88},
 	"sourceSize": {"w":132,"h":97},
 	"pivot": {"x":0.5,"y":0.5}
-}],
+}},
 "meta": {
 	"app": "http://www.codeandweb.com/texturepacker",
 	"version": "1.0",
@@ -88,6 +88,6 @@
 	"format": "RGBA8888",
 	"size": {"w":965,"h":92},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:f0bc883b5c4f3c002a0700a8cec054bd:abe6bbbc8fd753551b15a5009817f250:accbe1e7e294ded8391337fc1c446319$"
+	"smartupdate": "$TexturePacker:SmartUpdate:e31131ebe7dd3ab6ca500e759ccd1ed8:abe6bbbc8fd753551b15a5009817f250:accbe1e7e294ded8391337fc1c446319$"
 }
 }
