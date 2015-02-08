@@ -1,0 +1,12 @@
+{"frames": {
+
+"bus1":
+{
+	"frame": {"x":0,"y":0,"w":173,"h":140},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":173,"h":140},
+	"sourceSize": {"w":173,"h":140}
+},
+
+}

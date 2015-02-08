@@ -3,19 +3,15 @@ var Roads = {
   size: 38,
   doubleSize: 76,
   tileArray: [
-      'water',
-      'sand',
-      'grass',
-      'stone',
-      'wood',
-      'watersand',
-      'grasssand',
-      'sandstone',
-      'bush1',
-      'bush2',
-      'mushroom',
-      'wall',
-      'window'
+    "grass",
+    "pavement_bottom",
+    "pavement_center",
+    "pavement_top",
+    "road_bottom",
+    "road_center",
+    "road_single",
+    "road_top",
+    "water"
   ],
 
   grid: [],
@@ -60,8 +56,8 @@ var Roads = {
     var count = 0;
     for (var x = 1; x <= game.physics.isoArcade.bounds.frontX - this.size; x += this.size) {
         if (x <= this.size * 8 || x >= this.size * 26) { actTile = this.tileArray[8]; } else { actTile = roadTile } 
-        var tile = game.add.isoSprite(x, y, 0, 'tileset', actTile, roadGroup);
-        var tile2 = game.add.isoSprite(x, y + this.size - 1, 0, 'tileset', actTile, roadGroup);
+        var tile = game.add.isoSprite(x, y, 0, 'tiles', actTile, roadGroup);
+        var tile2 = game.add.isoSprite(x, y + this.size - 1, 0, 'tiles', actTile, roadGroup);
         Roads.setRoadTileProperties(tile, yVelocity);
         Roads.setRoadTileProperties(tile2, yVelocity);
         

@@ -1796,8 +1796,8 @@ Phaser.Plugin.Isometric.Projector.prototype = {
             out = new Phaser.Point();
         }
 
-        var xAngleDeg = 60
-        var yAngleDeg = 15
+        var xAngleDeg = 14.06
+        var yAngleDeg = 63.54
 
 
         // var xAngleDeg = 29
@@ -1806,15 +1806,15 @@ Phaser.Plugin.Isometric.Projector.prototype = {
         var xAngle = Phaser.Math.degToRad (xAngleDeg)
         var yAngle = Phaser.Math.degToRad (yAngleDeg)
 
-        xAngle = yAngle = Phaser.Plugin.Isometric.CLASSIC
+//        xAngle = yAngle = Phaser.Plugin.Isometric.CLASSIC
 
         var scales = this.getScaleFactors(xAngle, yAngle)
 
-        out.x = (point3.x * Math.cos(xAngle) * scales.yScale) + (point3.y * scales.xScale * Math.cos(yAngle))
-        out.y = (point3.y * Math.sin(yAngle) * scales.xScale) - (point3.x * scales.yScale * Math.sin(xAngle)) + point3.z
+        // out.x = (point3.x * Math.cos(xAngle) * scales.yScale) - (point3.y * scales.xScale * Math.cos(yAngle))
+        // out.y = (point3.y * Math.sin(yAngle) * scales.xScale) + (point3.x * scales.yScale * Math.sin(xAngle)) - point3.z
 
-        out.x = (point3.x * Math.cos(xAngle) * scales.yScale) + (point3.y * scales.xScale * Math.cos(yAngle))
-        out.y = (point3.y * Math.sin(yAngle) * scales.xScale) - (point3.x * scales.yScale * Math.sin(xAngle)) + point3.z
+        out.x = (point3.x * Math.cos(xAngle)) - (point3.y * Math.cos(yAngle))
+        out.y = (point3.y * Math.sin(yAngle)) + (point3.x * Math.sin(xAngle)) - point3.z
 
 
         out.x += this.game.world.width * this.anchor.x;

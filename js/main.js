@@ -44,7 +44,9 @@ BasicGame.Boot.prototype =
         game.physics.startSystem(Phaser.Plugin.Isometric.ISOARCADE);
         
         game.load.atlasJSONHash('tileset', 'assets/tileset.png', 'assets/tileset.json');
-
+        
+        game.load.atlasJSONHash('tiles', 'sprites/tiles.png', 'sprites/tiles.json');
+        
         //game.iso.anchor.setTo(0.5, 0);
         game.iso.anchor.setTo(0.6, 0);
         game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
