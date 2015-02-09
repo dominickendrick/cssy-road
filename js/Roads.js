@@ -56,7 +56,7 @@ var Roads = {
       Roads.setRoadTileProperties(tile, yVelocity);
         
         //set tint for bound edges
-      if (x <= this.size * 3 || x >= this.size * 13) { tile.tint = 0x86bfda } 
+      if (x <= this.size * 7 || x >= this.size * 17) { tile.tint = 0x86bfda } 
 
         //set heights for different tiles
       switch (roadTile) {

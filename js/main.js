@@ -39,7 +39,7 @@ BasicGame.Boot.prototype =
         game.stage.disableVisibilityChange = true;
         game.plugins.add(new Phaser.Plugin.Isometric(game));
 
-        game.world.setBounds(0, 0, 2548 , 1574);
+        game.world.setBounds(0, 0, 3560 , 2512);
         // Start the IsoArcade physics system.
         game.physics.startSystem(Phaser.Plugin.Isometric.ISOARCADE);
         

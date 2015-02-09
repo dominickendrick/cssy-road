@@ -18,7 +18,7 @@ var Player = {
     return this.player;
   },
   
-  currentLocation: [0,7],
+  currentLocation: [0,12],
   
   moving: false,
   update: function(player, yVelocity){
@@ -26,11 +26,11 @@ var Player = {
   },
 
   inBoundsLeft: function (){
-    return this.currentLocation[1] >= 5
+    return this.currentLocation[1] >= 9
   },
 
   inBoundsRight: function (){
-    return this.currentLocation[1] <= 12
+    return this.currentLocation[1] <= 16
   },
   
   snapToGrid: function(currentLocation){
