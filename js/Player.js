@@ -24,6 +24,14 @@ var Player = {
   update: function(player, yVelocity){
     this.snapToGrid(this.currentLocation);
   },
+
+  inBoundsLeft: function (){
+    return this.currentLocation[1] >= 5
+  },
+
+  inBoundsRight: function (){
+    return this.currentLocation[1] <= 12
+  },
   
   snapToGrid: function(currentLocation){
     var gridCell = Roads.grid[currentLocation[0]][currentLocation[1]];
@@ -126,15 +134,19 @@ var Player = {
     }, this);
 
     this.cursors.left.onDown.add(function () {
-      this.moving = true;
-      this.currentLocation[1] -= 1;
-      this.direction = "left";
+      if(this.inBoundsLeft()){
+        this.moving = true;
+        this.currentLocation[1] -= 1;
+        this.direction = "left";
+      }
     }, this);
 
     this.cursors.right.onDown.add(function () {
-      this.moving = true;
-      this.currentLocation[1] += 1;
-      this.direction = "right";
+      if(this.inBoundsRight()){
+        this.moving = true;
+        this.currentLocation[1] += 1;
+        this.direction = "right";
+      }
     }, this);
   },
   
