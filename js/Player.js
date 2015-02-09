@@ -9,7 +9,6 @@ var Player = {
     var bounds = game.physics.isoArcade.bounds;
    // this.player = game.add.isoSprite(bounds.frontY / 2, bounds.frontX / 2, 0, 'player', 0, carsGroup);
     this.player = game.add.isoSprite(bounds.frontY/ 2, bounds.frontX, 0, 'player', 0, carsGroup);
-    this.player.tint = 0x86bfda;
     this.player.anchor.set(0.5);
     game.physics.isoArcade.enable(this.player);
     this.player.body.moves = false;
@@ -18,7 +17,7 @@ var Player = {
     return this.player;
   },
   
-  currentLocation: [0,12],
+  currentLocation: [5,12],
   
   moving: false,
   update: function(player, yVelocity){

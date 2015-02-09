@@ -33,7 +33,7 @@ BasicGame.Boot.prototype =
     preload: function () {
       
         game.load.image('bus', 'assets/bus1.png');
-        game.load.image('player', 'assets/cube.png');
+        game.load.image('player', 'assets/chicken.png');
         
         game.time.advancedTiming = true;
         game.stage.disableVisibilityChange = true;
