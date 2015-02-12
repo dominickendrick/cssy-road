@@ -7,11 +7,11 @@ var Player = {
   playerScore: 0,
   init: function(game) {
     var bounds = game.physics.isoArcade.bounds;
-   // this.player = game.add.isoSprite(bounds.frontY / 2, bounds.frontX / 2, 0, 'player', 0, carsGroup);
     this.player = game.add.isoSprite(bounds.frontY/ 2, bounds.frontX, 0, 'player', 0, carsGroup);
     this.player.anchor.set(0.5);
     game.physics.isoArcade.enable(this.player);
     this.player.body.moves = false;
+    this.player.body.setSize(50,40,60,-10,0,0);
     Player.setControls(game, this.player);
 
     return this.player;

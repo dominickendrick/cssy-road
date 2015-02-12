@@ -38,8 +38,6 @@ var Roads = {
 
 
   loadTiles: function(){  
-    var tile = [];
-
     for (var y = this.size; y <= game.physics.isoArcade.bounds.frontY - this.doubleSize; y += this.size) {
       var tiles = Roads.addRoad(y, game.rnd.pick([0,1,2,3,4,5,6,7,8]));
       //add in reverse order to make indexing additions easier : /r
