@@ -9,8 +9,6 @@ var interval = 68;
 var speed = 300;
 //var GLOBAL_VELOCITY = 50;
 var GLOBAL_VELOCITY = 50;
-var size = 38;
-var doubleSize = 76;
 
 //  The Google WebFont Loader will look for this object, so create it before loading the script.
 WebFontConfig = {

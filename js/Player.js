@@ -52,26 +52,26 @@ var Player = {
     var jumpFunc;
     switch (this.direction) {
       case "up":
-        startMod = player.isoY > (this.snapLocation.y - (size));
-        endMod = player.isoY < (this.snapLocation.y - (size));
+        startMod = player.isoY > (this.snapLocation.y - (Roads.size));
+        endMod = player.isoY < (this.snapLocation.y - (Roads.size));
         moveAxis = "isoY";
         jumpFunc = function(subject, value){player[subject] -= value};
         break;
       case "down":
-        startMod = player.isoY < (this.snapLocation.y + (size + 5));
-        endMod = player.isoY > (this.snapLocation.y + (size + 5));
+        startMod = player.isoY < (this.snapLocation.y + (Roads.size + 5));
+        endMod = player.isoY > (this.snapLocation.y + (Roads.size + 5));
         moveAxis = "isoY";
         jumpFunc = function(subject, value){player[subject] += value};
         break;
       case "left":
-        startMod = player.isoX > (this.snapLocation.x - (size + 5));
-        endMod = player.isoX < (this.snapLocation.x - (size + 5));
+        startMod = player.isoX > (this.snapLocation.x - (Roads.size + 5));
+        endMod = player.isoX < (this.snapLocation.x - (Roads.size + 5));
         moveAxis = 'isoX';
         jumpFunc = function(subject, value){player[subject] -= value};
         break;
       case "right":
-        startMod = player.isoX > (this.snapLocation.y + (size + 5));
-        endMod = player.isoX < (this.snapLocation.y + (size + 5));   
+        startMod = player.isoX > (this.snapLocation.y + (Roads.size + 5));
+        endMod = player.isoX < (this.snapLocation.y + (Roads.size + 5));   
         moveAxis = 'isoX';
         jumpFunc = function(subject, value){player[subject] += value};  
         break;

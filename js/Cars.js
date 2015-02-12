@@ -1,5 +1,4 @@
 var Cars = {
- 
   update: function(yVelocity){   
     carsGroup.forEach(function(cars){
       if (cars.key != 'player'){
@@ -10,13 +9,23 @@ var Cars = {
       }
     });    
   },
-  
-  addCars: function(x,y, velocity, tile){   
-    game.time.events.repeat(Phaser.Timer.SECOND * game.rnd.pick([3, 4, 5]), 100, this.createCar,this, x, tile, velocity);
+
+  loadCars: function(orientation, tile){
+    if (orientation == "left"){
+      var frontX = game.physics.isoArcade.bounds.frontX
+      Cars.addCarDispatcher(frontX - (Roads.doubleSize ), 0 - game.rnd.between(50, 200), tile[0], orientation);
+    } else {
+      Cars.addCarDispatcher((Roads.doubleSize), game.rnd.between(50, 200), tile[0], orientation);
+    }
   },
   
-  createCar: function(x,tile,velocity){
-    car = game.add.isoSprite(x, tile.isoY - (size + 5), 0, 'bus', 0, carsGroup);
+  addCarDispatcher: function(x, velocity, tile, orientation){   
+    game.time.events.repeat(Phaser.Timer.SECOND * game.rnd.pick([3, 4, 5]), 100, this.createCar, this, x, tile, velocity, orientation);
+  },
+  
+  createCar: function(x, tile, velocity, orientation){
+    console.log(tile)
+    car = game.add.isoSprite(x, tile.isoY - Roads.size / 2, 0, 'tiles', 'car_' + orientation, carsGroup);
     car.anchor.set(0.5);
     // Enable the physics body on this car.
     game.physics.isoArcade.enable(car);

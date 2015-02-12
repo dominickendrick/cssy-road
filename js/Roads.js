@@ -50,7 +50,7 @@ var Roads = {
   addRoad: function(y, tileType, yVelocity){
     var orientation = game.rnd.pick(["left", "right"]);
     var roadTile = this.tileArray[tileType];  
-    var tileBuffer = [];
+    var tileContainer = [];
     for (var x = 1; x <= game.physics.isoArcade.bounds.frontX - this.size; x += this.size) {
       var tile = game.add.isoSprite(x, y, 0, 'tiles', roadTile, roadGroup);
       Roads.setRoadTileProperties(tile, yVelocity);
@@ -58,38 +58,19 @@ var Roads = {
         //set tint for bound edges
       if (x <= this.size * 7 || x >= this.size * 17) { tile.tint = 0x86bfda } 
 
-        //set heights for different tiles
-      switch (roadTile) {
-        case "grass":
-        case "pavement_bottom":
-        case "pavement_center":
-        case "pavement_top":
-          tile.isoZ = 4;
-          break;
-        case "road_bottom":
-        case "road_center":
-        case "road_single":
-        case "road_top":
-        case "water":
-          tile.isoZ = 0
-        break;
-      }
       tile.body.immovable = true;
-      tileBuffer.push(tile);
+      tileContainer.push(tile);
     }
-    if (roadTile == this.tileArray[7]){
-      Roads.loadCars(y, orientation, tileBuffer);
+    switch (roadTile) {
+      case "road_bottom":
+      case "road_center":
+      case "road_single":
+      case "road_top":
+        Cars.loadCars(orientation, tileContainer);
+      break;
+
     }
-    return tileBuffer;
-  },
-  
-  loadCars: function(y, orientation, tile){
-    if (orientation == "right"){
-      var frontX = game.physics.isoArcade.bounds.frontX
-      Cars.addCars(frontX - (this.doubleSize * 2), y - (this.size + 10), 0 - game.rnd.between(50, 200), tile.pop());
-    } else {
-      Cars.addCars((this.doubleSize * 2), y - (this.size + 10), game.rnd.between(50, 200), tile[0]);
-    }
+    return tileContainer;
   },
   
   setRoadTileProperties: function(tile, yVelocity){
