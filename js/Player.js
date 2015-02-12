@@ -70,14 +70,14 @@ var Player = {
         jumpFunc = function(subject, value){player[subject] -= value};
         break;
       case "right":
-        startMod = player.isoX > (this.snapLocation.y + (Roads.size + 5));
-        endMod = player.isoX < (this.snapLocation.y + (Roads.size + 5));   
+        startMod = player.isoX < (this.snapLocation.x + (Roads.size + 5));
+        endMod = player.isoX > (this.snapLocation.x + (Roads.size + 5));   
         moveAxis = 'isoX';
         jumpFunc = function(subject, value){player[subject] += value};  
         break;
     }  
     
-    if (startMod && player.isoZ < 20) {
+    if (startMod && player.isoZ < 15) {
       player.isoZ += 2;
       jumpFunc(moveAxis,7);
     } else if (endMod && player.isoZ > 0){

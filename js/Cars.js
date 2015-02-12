@@ -20,6 +20,7 @@ var Cars = {
   },
   
   addCarDispatcher: function(x, velocity, tile, orientation){   
+    this.createCar(x, tile, velocity, orientation)
     game.time.events.repeat(Phaser.Timer.SECOND * game.rnd.pick([3, 4, 5]), 100, this.createCar, this, x, tile, velocity, orientation);
   },
   

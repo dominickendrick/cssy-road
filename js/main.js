@@ -62,9 +62,8 @@ BasicGame.Boot.prototype =
         Roads.loadTiles();
         player = Player.init(game);
 
-        game.camera.follow(player,Phaser.Camera.FOLLOW_TOPDOWN_TIGHT);
+        game.camera.follow(player,Phaser.Camera.FOLLOW_TOPDOWN);
         game.camera.roundPx = false;
-        
     },
     
     update: function () {    
