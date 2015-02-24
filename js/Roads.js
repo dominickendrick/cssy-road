@@ -17,22 +17,13 @@ var Roads = {
   grid: [],
   
   gridCellCenter: function(cell){
-    return [cell.isoX, cell.isoY];
+    return [cell.isoX - this.size * 0.5, cell.isoY - this.size * 0.5];
   },
   
   update: function(yVelocity){
-        
-    var headY = roadGroup.getChildAt(1).isoY - this.size;
-    if( headY >= this.size){
-      Roads.createNewRoads(yVelocity);
-    }
-    
-    roadGroup.forEach(function(roads){
-      if ( roads.body.onWall() ){
-        roads.kill();
-      }
-      roads.body.velocity.y = yVelocity;
-    });
+             roadGroup.forEach(function(roads){
+       roads.body.velocity.y = yVelocity
+     });
     
   },
 
@@ -40,7 +31,7 @@ var Roads = {
   loadTiles: function(){  
     for (var y = this.size; y <= game.physics.isoArcade.bounds.frontY - this.doubleSize; y += this.size) {
       var tiles = Roads.addRoad(y, game.rnd.pick([0,1,2,3,4,5,6,7,8]));
-      //add in reverse order to make indexing additions easier : /r
+      //add in reverse order to make indexing additions easier : /
       this.grid.unshift(tiles);
     }
   },
@@ -73,7 +64,6 @@ var Roads = {
   
   setRoadTileProperties: function(tile, yVelocity){
     game.physics.isoArcade.enable(tile);
-    tile.body.collideWorldBounds = true;
     tile.body.maxVelocity = new Phaser.Plugin.Isometric.Point3(200,200,200);
     tile.body.drag.set(200, 200, 200);
     tile.body.setSize(74,74,4,0,0,0)
@@ -84,7 +74,14 @@ var Roads = {
   },
   
   createNewRoads: function(yVelocity){
-    var tiles = Roads.addRoad(game.physics.isoArcade.bounds.backY + this.size, game.rnd.pick([0,1,2,3,4,5,6,7]), yVelocity)
+    //get top tile from grid 
+    var tile = this.grid[this.grid.length - 1][0]
+    //console.log(tile )
+    console.log(tile.isoY )
+    var yValue = tile.isoY - this.size
+    
+    
+    var tiles = Roads.addRoad(yValue, game.rnd.pick([0,1,2,3,4,5,6,7]), yVelocity)
     this.grid.push(tiles);
     game.iso.simpleSort(roadGroup);
   }

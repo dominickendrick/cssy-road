@@ -8,7 +8,7 @@ var carsGroup, player;
 var interval = 68;
 var speed = 300;
 //var GLOBAL_VELOCITY = 50;
-var GLOBAL_VELOCITY = 50;
+var GLOBAL_VELOCITY = 0 //50;
 
 //  The Google WebFont Loader will look for this object, so create it before loading the script.
 WebFontConfig = {
@@ -62,17 +62,16 @@ BasicGame.Boot.prototype =
         Roads.loadTiles();
         player = Player.init(game);
 
-        game.camera.follow(player,Phaser.Camera.FOLLOW_TOPDOWN);
+        game.camera.follow(player,Phaser.Camera.FOLLOW_LOCKON);
         game.camera.roundPx = false;
     },
     
     update: function () {    
-//      game.iso.simpleSort(carsGroup);
       Player.update(player, GLOBAL_VELOCITY);
       Roads.update(GLOBAL_VELOCITY);
       Cars.update(GLOBAL_VELOCITY);
 
-      game.physics.isoArcade.collide(carsGroup, player);
+      game.physics.isoArcade.collide(carsGroup, player, Player.hitCar, null, this, carsGroup, player);
       game.physics.isoArcade.collide(roadGroup, player);
 
     },
@@ -82,7 +81,6 @@ BasicGame.Boot.prototype =
         //     game.debug.body(tile, 'rgba(189, 221, 235, 0.6)', false);
         // });
     }
-    
 };
 
 

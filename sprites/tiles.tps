@@ -197,6 +197,8 @@
             <filename>../assets/road_top.png</filename>
             <filename>../assets/road_bottom.png</filename>
             <filename>../assets/road_single.png</filename>
+            <filename>../assets/car_right.png</filename>
+            <filename>../assets/car_left.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

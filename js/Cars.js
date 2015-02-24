@@ -25,7 +25,7 @@ var Cars = {
   },
   
   createCar: function(x, tile, velocity, orientation){
-    car = game.add.isoSprite(x, tile.isoY - Roads.size / 2, 0, 'tiles', 'car_' + orientation, carsGroup);
+    car = game.add.isoSprite(x, tile.isoY , 0, 'tiles', 'car_' + orientation, carsGroup);
     car.anchor.set(0.5);
     // Enable the physics body on this car.
     game.physics.isoArcade.enable(car);

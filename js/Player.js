@@ -17,7 +17,7 @@ var Player = {
     return this.player;
   },
   
-  currentLocation: [5,12],
+  currentLocation: [2,12],
   
   moving: false,
   update: function(player, yVelocity){
@@ -150,14 +150,19 @@ var Player = {
   },
   
   checkLocation: function(player){
-    // if(player.y < 400){
-    //   GLOBAL_VELOCITY = 20;
-    // } else if (player.y < 500){
-    //   GLOBAL_VELOCITY = 400;
-    // } else {
-    //   GLOBAL_VELOCITY = 30;
-    // }
-    GLOBAL_VELOCITY = 30;
+    //add new road when player moves forward
+    if (game.scoreCount.text == (this.currentLocation[0] - 1) || game.scoreCount.text == 0){
+      Roads.createNewRoads(GLOBAL_VELOCITY);
+    }
+    
+    if(player.y < 600){
+      GLOBAL_VELOCITY = 70;
+    } else if (player.y < 400){
+      GLOBAL_VELOCITY = 300;
+    } else {
+      GLOBAL_VELOCITY = 60;
+    }
+    GLOBAL_VELOCITY = 0;
   },
   updateScore: function(game){
     if (game.scoreCount.text == (this.currentLocation[0] - 1) || game.scoreCount.text == 0){
@@ -182,4 +187,17 @@ var Player = {
     item.stroke = '#000000';
     item.strokeThickness = 6;
   },
+
+  hitCar: function(playerSprite, carsGroup, player){
+    console.log(playerSprite)
+    console.log(carsGroup)
+    console.log(player)
+    //playerSprite.destroy();
+    game.time.events.add(0, Player.gameOver, this);
+  },
+
+  gameOver: function() {    
+      //Player.currentLocation = [5,12]
+      this.game.state.start('Boot', true, false)
+  }
 }
