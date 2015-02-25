@@ -5,6 +5,8 @@ var Player = {
   moving: false,
   jumping: false,
   playerScore: 0,
+  maxLocation:0,
+
   init: function(game) {
     var bounds = game.physics.isoArcade.bounds;
     this.player = game.add.isoSprite(bounds.frontY/ 2, bounds.frontX, 0, 'player', 0, carsGroup);
@@ -20,7 +22,10 @@ var Player = {
   currentLocation: [2,12],
   
   moving: false,
-  update: function(player, yVelocity){
+
+  update: function(player){
+
+    game.camera.focusOnXY(player.x, player.y - Roads.size * 2)
     this.snapToGrid(this.currentLocation);
   },
 
@@ -37,9 +42,10 @@ var Player = {
     var destination = Roads.gridCellCenter(gridCell);
     this.snapLocation.x = destination[0];
     this.snapLocation.y = destination[1];
-    
+
     if (!this.moving){
       this.snapStop();
+
     } else {
       this.snapJump();
     }
@@ -76,13 +82,12 @@ var Player = {
         jumpFunc = function(subject, value){player[subject] += value};  
         break;
     }  
-    
     if (startMod && player.isoZ < 15) {
       player.isoZ += 2;
       jumpFunc(moveAxis,7);
     } else if (endMod && player.isoZ > 0){
       player.isoZ -= 2;
-      jumpFunc(player[moveAxis],3);
+      jumpFunc(moveAxis,3);
     } else {
       this.snapStop();
     }
@@ -151,19 +156,20 @@ var Player = {
   
   checkLocation: function(player){
     //add new road when player moves forward
-    if (game.scoreCount.text == (this.currentLocation[0] - 1) || game.scoreCount.text == 0){
-      Roads.createNewRoads(GLOBAL_VELOCITY);
+    if (game.scoreCount.text == (this.currentLocation[0] - 1) || game.scoreCount.text == 0){ 
+      Player.alignWorld();     
+      Roads.createNewRoads(game.velocity);
+      Cars.cullCars(player.isoY);
     }
-    
-    if(player.y < 600){
-      GLOBAL_VELOCITY = 70;
-    } else if (player.y < 400){
-      GLOBAL_VELOCITY = 300;
-    } else {
-      GLOBAL_VELOCITY = 60;
-    }
-    GLOBAL_VELOCITY = 0;
   },
+
+  alignWorld: function(){
+    offset = this.currentLocation[0] * Roads.size
+    worldOffsetY = 0 - offset
+    worldOffsetX = offset * 0.5
+    game.world.setBounds(worldOffsetX, worldOffsetY, worldWidth , worldHeight)
+  },
+
   updateScore: function(game){
     if (game.scoreCount.text == (this.currentLocation[0] - 1) || game.scoreCount.text == 0){
       game.scoreCount.text = this.currentLocation[0]
@@ -189,10 +195,6 @@ var Player = {
   },
 
   hitCar: function(playerSprite, carsGroup, player){
-    console.log(playerSprite)
-    console.log(carsGroup)
-    console.log(player)
-    //playerSprite.destroy();
     game.time.events.add(0, Player.gameOver, this);
   },
 

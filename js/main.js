@@ -7,8 +7,8 @@ BasicGame.Boot = function (game) { };
 var carsGroup, player;
 var interval = 68;
 var speed = 300;
-//var GLOBAL_VELOCITY = 50;
-var GLOBAL_VELOCITY = 0 //50;
+var worldWidth = 3560;
+var worldHeight = 2512;
 
 //  The Google WebFont Loader will look for this object, so create it before loading the script.
 WebFontConfig = {
@@ -37,18 +37,14 @@ BasicGame.Boot.prototype =
         game.stage.disableVisibilityChange = true;
         game.plugins.add(new Phaser.Plugin.Isometric(game));
 
-        game.world.setBounds(0, 0, 3560 , 2512);
+        game.world.setBounds(0, 0, worldWidth , worldHeight);
         // Start the IsoArcade physics system.
         game.physics.startSystem(Phaser.Plugin.Isometric.ISOARCADE);
         
-        game.load.atlasJSONHash('tileset', 'assets/tileset.png', 'assets/tileset.json');
-        
         game.load.atlasJSONHash('tiles', 'sprites/tiles.png', 'sprites/tiles.json');
         
-        //game.iso.anchor.setTo(0.5, 0);
         game.iso.anchor.setTo(0.6, 0);
         game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
-//        game.iso.projectionAngle = Math.PI * 5;
 
     },
     create: function () {
@@ -56,20 +52,16 @@ BasicGame.Boot.prototype =
         roadGroup = game.add.group();
         carsGroup = game.add.group();
 
-        game.physics.isoArcade.gravity.setTo(0, 0, -500);
+        game.physics.isoArcade.gravity.setTo(0, 0, -100);
         game.physics.isoArcade.useQuadTree = true;
         
         Roads.loadTiles();
         player = Player.init(game);
 
-        game.camera.follow(player,Phaser.Camera.FOLLOW_LOCKON);
-        game.camera.roundPx = false;
     },
     
     update: function () {    
-      Player.update(player, GLOBAL_VELOCITY);
-      Roads.update(GLOBAL_VELOCITY);
-      Cars.update(GLOBAL_VELOCITY);
+      Player.update(player);
 
       game.physics.isoArcade.collide(carsGroup, player, Player.hitCar, null, this, carsGroup, player);
       game.physics.isoArcade.collide(roadGroup, player);

@@ -1,13 +1,12 @@
 var Cars = {
-  update: function(yVelocity){   
-    carsGroup.forEach(function(cars){
-      if (cars.key != 'player'){
-        cars.body.velocity.y = yVelocity;
-        if ( cars.body.onWall() ){
-          cars.kill();
-        }
+  
+  cullCars: function(playerLocation){
+    carsGroup.forEach(function(car){
+      if (car && car.key != 'player' && car.isoY - playerLocation > 50){
+        carsGroup.remove(car);
+        car.destroy();
       }
-    });    
+    });
   },
 
   loadCars: function(orientation, tile){
@@ -30,7 +29,6 @@ var Cars = {
     // Enable the physics body on this car.
     game.physics.isoArcade.enable(car);
     // Collide with the world bounds so it doesn't go falling forever or fly off the screen!
-    car.body.collideWorldBounds = true;
     car.body.setSize(90,50,60,-25,10,0);
     car.body.velocity.x = velocity;
     car.body.maxVelocity = new Phaser.Plugin.Isometric.Point3(200,200,200);

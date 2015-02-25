@@ -19,14 +19,6 @@ var Roads = {
   gridCellCenter: function(cell){
     return [cell.isoX - this.size * 0.5, cell.isoY - this.size * 0.5];
   },
-  
-  update: function(yVelocity){
-             roadGroup.forEach(function(roads){
-       roads.body.velocity.y = yVelocity
-     });
-    
-  },
-
 
   loadTiles: function(){  
     for (var y = this.size; y <= game.physics.isoArcade.bounds.frontY - this.doubleSize; y += this.size) {
@@ -76,11 +68,7 @@ var Roads = {
   createNewRoads: function(yVelocity){
     //get top tile from grid 
     var tile = this.grid[this.grid.length - 1][0]
-    //console.log(tile )
-    console.log(tile.isoY )
     var yValue = tile.isoY - this.size
-    
-    
     var tiles = Roads.addRoad(yValue, game.rnd.pick([0,1,2,3,4,5,6,7]), yVelocity)
     this.grid.push(tiles);
     game.iso.simpleSort(roadGroup);
