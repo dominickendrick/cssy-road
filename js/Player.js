@@ -14,7 +14,7 @@ var Player = {
     this.player.body.moves = false;
     this.player.body.setSize(50,40,60,-10,0,0);
     Player.setControls(game, this.player);
-    
+
     return this.player;
   },
   
@@ -125,22 +125,26 @@ var Player = {
     player.moving = false;
     
     this.cursors.up.onDown.add(function () {
-      this.moving = true;
-      this.currentLocation[0] += 1;
-      this.direction = "up";
-      this.checkLocation(player);
-      this.updateScore(game);
+      if (this.moving == false){
+        this.moving = true;
+        this.currentLocation[0] += 1;
+        this.direction = "up";
+        this.checkLocation(player);
+        this.updateScore(game);
+      }
     }, this);
     
 
     this.cursors.down.onDown.add(function () {
-      this.moving = true;
-      this.currentLocation[0] -= 1;
-      this.direction = "down";
+      if (this.moving == false){
+        this.moving = true;
+        this.currentLocation[0] -= 1;
+        this.direction = "down";
+      }
     }, this);
 
     this.cursors.left.onDown.add(function () {
-      if(this.inBoundsLeft()){
+      if(this.inBoundsLeft() || this.moving == false){
         this.moving = true;
         this.currentLocation[1] -= 1;
         this.direction = "left";
@@ -148,7 +152,7 @@ var Player = {
     }, this);
 
     this.cursors.right.onDown.add(function () {
-      if(this.inBoundsRight()){
+      if(this.inBoundsRight() || this.moving == false){
         this.moving = true;
         this.currentLocation[1] += 1;
         this.direction = "right";
