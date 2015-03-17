@@ -1,6 +1,5 @@
 var Player = {
   
-  player: '',
   snapLocation: { x: 0, y: 0},
   moving: false,
   jumping: false,
@@ -15,7 +14,7 @@ var Player = {
     this.player.body.moves = false;
     this.player.body.setSize(50,40,60,-10,0,0);
     Player.setControls(game, this.player);
-
+    
     return this.player;
   },
   
@@ -23,9 +22,12 @@ var Player = {
   
   moving: false,
 
-  update: function(player){
+  update: function(player, game){
+    //game.camera.focusOnXY(player.x, player.y - Roads.size * 2)
+    game.cameraPos.x += (player.x - game.cameraPos.x) * game.cameraLerp; // smoothly adjust the x position
+    game.cameraPos.y += (player.y - game.cameraPos.y - Roads.size * 2) * game.cameraLerp; // smoothly adjust the y position
+    game.camera.focusOnXY(game.cameraPos.x, game.cameraPos.y); // apply smoothed virtual positions to actual
 
-    game.camera.focusOnXY(player.x, player.y - Roads.size * 2)
     this.snapToGrid(this.currentLocation);
   },
 

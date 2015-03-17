@@ -38,7 +38,7 @@
         <key>dataFormat</key>
         <string>json</string>
         <key>textureFileName</key>
-        <filename>tiles.png</filename>
+        <filename>../../climate-change-story/sprites/tiles.png</filename>
         <key>flipPVR</key>
         <false/>
         <key>pvrCompressionQuality</key>
@@ -145,7 +145,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>tiles.json</filename>
+                <filename>../../climate-change-story/sprites/tiles.json</filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -189,7 +189,6 @@
         <key>fileList</key>
         <array>
             <filename>../assets/water.png</filename>
-            <filename>../assets/grass.png</filename>
             <filename>../assets/pavement_bottom.png</filename>
             <filename>../assets/pavement_top.png</filename>
             <filename>../assets/pavement_center.png</filename>
@@ -199,6 +198,14 @@
             <filename>../assets/road_single.png</filename>
             <filename>../assets/car_right.png</filename>
             <filename>../assets/car_left.png</filename>
+            <filename>../assets/water_blue.png</filename>
+            <filename>../../climate-change-story/assets/grass.png</filename>
+            <filename>../assets/sand.png</filename>
+            <filename>../assets/question.png</filename>
+            <filename>../assets/no.png</filename>
+            <filename>../assets/yes.png</filename>
+            <filename>../assets/bush.png</filename>
+            <filename>../assets/tree.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

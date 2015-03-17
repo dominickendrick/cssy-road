@@ -1,8 +1,17 @@
 {"frames": {
 
+"bush":
+{
+	"frame": {"x":109,"y":722,"w":106,"h":91},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":13,"y":3,"w":106,"h":91},
+	"sourceSize": {"w":132,"h":97},
+	"pivot": {"x":0.5,"y":0.5}
+},
 "car_left":
 {
-	"frame": {"x":2,"y":2,"w":122,"h":88},
+	"frame": {"x":2,"y":452,"w":122,"h":88},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":7,"y":5,"w":122,"h":88},
@@ -11,7 +20,7 @@
 },
 "car_right":
 {
-	"frame": {"x":2,"y":92,"w":111,"h":87},
+	"frame": {"x":2,"y":2,"w":111,"h":87},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":7,"y":4,"w":111,"h":87},
@@ -20,7 +29,16 @@
 },
 "grass":
 {
-	"frame": {"x":2,"y":181,"w":105,"h":88},
+	"frame": {"x":109,"y":542,"w":105,"h":88},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":14,"y":6,"w":105,"h":88},
+	"sourceSize": {"w":132,"h":97},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"no":
+{
+	"frame": {"x":2,"y":542,"w":105,"h":88},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":14,"y":6,"w":105,"h":88},
@@ -29,7 +47,7 @@
 },
 "pavement_bottom":
 {
-	"frame": {"x":2,"y":271,"w":105,"h":88},
+	"frame": {"x":2,"y":722,"w":105,"h":88},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":14,"y":6,"w":105,"h":88},
@@ -38,7 +56,7 @@
 },
 "pavement_center":
 {
-	"frame": {"x":2,"y":361,"w":105,"h":88},
+	"frame": {"x":109,"y":632,"w":105,"h":88},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":14,"y":6,"w":105,"h":88},
@@ -47,7 +65,16 @@
 },
 "pavement_top":
 {
-	"frame": {"x":2,"y":451,"w":105,"h":88},
+	"frame": {"x":2,"y":632,"w":105,"h":88},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":14,"y":6,"w":105,"h":88},
+	"sourceSize": {"w":132,"h":97},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"question":
+{
+	"frame": {"x":115,"y":2,"w":105,"h":88},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":14,"y":6,"w":105,"h":88},
@@ -56,7 +83,7 @@
 },
 "road_bottom":
 {
-	"frame": {"x":2,"y":541,"w":105,"h":88},
+	"frame": {"x":2,"y":362,"w":105,"h":88},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":14,"y":6,"w":105,"h":88},
@@ -65,7 +92,7 @@
 },
 "road_center":
 {
-	"frame": {"x":2,"y":631,"w":105,"h":88},
+	"frame": {"x":2,"y":92,"w":105,"h":88},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":14,"y":6,"w":105,"h":88},
@@ -74,7 +101,7 @@
 },
 "road_single":
 {
-	"frame": {"x":2,"y":721,"w":105,"h":88},
+	"frame": {"x":109,"y":92,"w":105,"h":88},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":14,"y":6,"w":105,"h":88},
@@ -83,16 +110,52 @@
 },
 "road_top":
 {
-	"frame": {"x":2,"y":811,"w":105,"h":88},
+	"frame": {"x":2,"y":182,"w":105,"h":88},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":14,"y":6,"w":105,"h":88},
 	"sourceSize": {"w":132,"h":97},
 	"pivot": {"x":0.5,"y":0.5}
 },
+"sand":
+{
+	"frame": {"x":109,"y":272,"w":105,"h":88},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":14,"y":6,"w":105,"h":88},
+	"sourceSize": {"w":132,"h":97},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"tree":
+{
+	"frame": {"x":2,"y":815,"w":183,"h":157},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":4,"y":7,"w":183,"h":157},
+	"sourceSize": {"w":201,"h":164},
+	"pivot": {"x":0.5,"y":0.5}
+},
 "water":
 {
-	"frame": {"x":2,"y":901,"w":105,"h":88},
+	"frame": {"x":109,"y":182,"w":105,"h":88},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":14,"y":6,"w":105,"h":88},
+	"sourceSize": {"w":132,"h":97},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"water_blue":
+{
+	"frame": {"x":2,"y":272,"w":105,"h":88},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":14,"y":6,"w":105,"h":88},
+	"sourceSize": {"w":132,"h":97},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"yes":
+{
+	"frame": {"x":109,"y":362,"w":105,"h":88},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":14,"y":6,"w":105,"h":88},
@@ -104,8 +167,8 @@
 	"version": "1.0",
 	"image": "tiles.png",
 	"format": "RGBA8888",
-	"size": {"w":126,"h":991},
+	"size": {"w":222,"h":974},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:52a99c6b43f247a6e2fb3498e30d4d96:bb2a7bdf3a38aceafd58f274ec0b861b:accbe1e7e294ded8391337fc1c446319$"
+	"smartupdate": "$TexturePacker:SmartUpdate:7f70341478f68e76f2e33666ac344a6b:be52c9c48109ae685f256aa3440c7543:accbe1e7e294ded8391337fc1c446319$"
 }
 }

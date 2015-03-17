@@ -29,8 +29,6 @@ BasicGame.Boot.prototype =
 {
 
     preload: function () {
-      
-        game.load.image('bus', 'assets/bus1.png');
         game.load.image('player', 'assets/chicken.png');
         
         game.time.advancedTiming = true;
@@ -45,6 +43,8 @@ BasicGame.Boot.prototype =
         
         game.iso.anchor.setTo(0.6, 0);
         game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
+        game.cameraPos = new Phaser.Point(0, 0); // store the smoothed virtual camera position
+        game.cameraLerp = 0.1; // specifies how tightly the camera follows; 1 for locked to object, lower values for smoother following
 
     },
     create: function () {
@@ -57,11 +57,12 @@ BasicGame.Boot.prototype =
         
         Roads.loadTiles();
         player = Player.init(game);
+        game.camera.focusOnXY(player.x, player.y)
 
     },
     
     update: function () {    
-      Player.update(player);
+      Player.update(player, game);
 
       game.physics.isoArcade.collide(carsGroup, player, Player.hitCar, null, this, carsGroup, player);
       game.physics.isoArcade.collide(roadGroup, player);
